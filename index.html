@@ -11,7 +11,6 @@
       --fg: #f4efe6;
       --muted: #9a9388;
       --line: #2a2723;
-      --accent: #f2c14e;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -20,121 +19,107 @@
       background: var(--bg);
       color: var(--fg);
       overflow: hidden;
-      touch-action: manipulation;
     }
-    .deck {
+    .app {
       height: 100%;
       display: flex;
       flex-direction: column;
-      padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
-      max-width: 520px;
-      margin: 0 auto;
     }
     .bar {
+      flex: none;
+      padding: 10px 12px calc(10px + env(safe-area-inset-top));
+      padding-top: calc(10px + env(safe-area-inset-top));
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    .progress {
       height: 3px;
       background: var(--line);
       border-radius: 99px;
       overflow: hidden;
-      flex: none;
+      margin-bottom: 10px;
     }
-    .bar > i {
-      display: block;
-      height: 100%;
-      background: var(--fg);
-      width: 0;
-    }
-    .meta {
+    .progress > i { display: block; height: 100%; background: var(--fg); width: 0; }
+    .row {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      letter-spacing: 0.02em;
+      align-items: center;
+      gap: 8px;
     }
-    .card {
+    .title {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 12px 4px 24px;
-      min-height: 0;
+      min-width: 0;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .shelf {
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 11px;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-    h1 {
-      font-size: clamp(28px, 7vw, 42px);
-      line-height: 1.1;
-      font-weight: 620;
-      letter-spacing: -0.03em;
-      margin: 0 0 16px;
-    }
-    .host { color: var(--muted); font-size: 15px; word-break: break-all; }
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex: none;
-    }
+    .count { color: var(--muted); font-size: 12px; flex: none; }
     button, a.btn {
       appearance: none;
       border: 0;
-      border-radius: 999px;
-      padding: 14px 18px;
-      font: inherit;
-      font-size: 15px;
-      cursor: pointer;
-      text-decoration: none;
-      text-align: center;
-    }
-    a.btn {
-      background: var(--fg);
-      color: var(--bg);
-      flex: 1;
-      font-weight: 600;
-    }
-    button.ghost {
       background: #1a1815;
       color: var(--fg);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      flex: none;
     }
-    .hit {
-      position: fixed;
-      top: 48px;
-      bottom: 90px;
-      width: 28%;
-      z-index: 2;
+    a.btn { background: var(--fg); color: var(--bg); font-weight: 600; }
+    .stage {
+      flex: 1;
+      position: relative;
+      min-height: 0;
+      background: #fff;
     }
-    .hit.left { left: 0; }
-    .hit.right { right: 0; }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #fff;
+    }
+    .block {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      color: var(--fg);
+      padding: 48px 24px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .block.on { display: flex; flex-direction: column; gap: 16px; }
+    .block p { color: var(--muted); margin: 0; max-width: 28em; }
   </style>
 </head>
 <body>
-  <div class="deck">
-    <div class="bar"><i id="fill"></i></div>
-    <div class="meta">
-      <span id="count"></span>
-      <span id="host"></span>
+  <div class="app">
+    <div class="bar">
+      <div class="progress"><i id="fill"></i></div>
+      <div class="row">
+        <button type="button" id="prev">Back</button>
+        <button type="button" id="next">Next</button>
+        <button type="button" id="shuffle">Shuffle</button>
+        <div class="title" id="title"></div>
+        <div class="count" id="count"></div>
+        <a class="btn" id="open" target="_blank" rel="noopener">Open</a>
+      </div>
     </div>
-    <div class="card">
-      <div class="shelf" id="shelf"></div>
-      <h1 id="title"></h1>
-      <div class="host" id="urlhost"></div>
-    </div>
-    <div class="actions">
-      <button class="ghost" id="shuffle" type="button">Shuffle</button>
-      <a class="btn" id="open" target="_blank" rel="noopener">Open</a>
+    <div class="stage">
+      <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="block" id="block">
+        <p id="blockmsg">This site won’t load in the frame.</p>
+        <a class="btn" id="blockopen" target="_blank" rel="noopener">Open it</a>
+      </div>
     </div>
   </div>
-  <div class="hit left" id="prev"></div>
-  <div class="hit right" id="next"></div>
   <script>
     let items = [];
     let i = 0;
-
+    let loadTok = 0;
     const $ = (id) => document.getElementById(id);
 
     function shuffle(a) {
@@ -150,12 +135,30 @@
       const it = items[i];
       if (!it) return;
       $("title").textContent = it.title;
-      $("shelf").textContent = it.shelf;
-      $("urlhost").textContent = it.host;
-      $("host").textContent = "";
       $("count").textContent = (i + 1) + " / " + items.length;
       $("fill").style.width = ((i + 1) / items.length * 100) + "%";
       $("open").href = it.url;
+      $("blockopen").href = it.url;
+      $("block").classList.remove("on");
+      const tok = ++loadTok;
+      const frame = $("frame");
+      frame.src = "about:blank";
+      requestAnimationFrame(() => {
+        if (tok !== loadTok) return;
+        frame.src = it.url;
+      });
+      setTimeout(() => {
+        if (tok !== loadTok) return;
+        try {
+          const href = frame.contentWindow.location.href;
+          if (href === "about:blank") {
+            $("blockmsg").textContent = "This one blocked the embed.";
+            $("block").classList.add("on");
+          }
+        } catch (_) {
+          /* cross-origin: it loaded */
+        }
+      }, 2800);
     }
 
     function go(d) {
@@ -168,21 +171,11 @@
     $("shuffle").onclick = () => { items = shuffle(items); i = 0; show(); };
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); go(1); }
+      if (e.target.closest("iframe")) return;
+      if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
-      if (e.key === "Enter") $("open").click();
       if (e.key === "s") $("shuffle").click();
     });
-
-    let x0 = null;
-    document.addEventListener("touchstart", (e) => { x0 = e.changedTouches[0].screenX; }, {passive:true});
-    document.addEventListener("touchend", (e) => {
-      if (x0 == null) return;
-      const dx = e.changedTouches[0].screenX - x0;
-      if (dx < -40) go(1);
-      if (dx > 40) go(-1);
-      x0 = null;
-    }, {passive:true});
 
     fetch("articles.json")
       .then((r) => r.json())
