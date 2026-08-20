@@ -1,9 +1,9 @@
 {
   "id": "mindbend",
   "name": "Mindbend",
-  "blurb": "Jhanas and absorption. Trainable states, first-person, no mindfulness-app filler.",
+  "blurb": "Meditation as a trainable strange state. Jhanas, noting, cessations, and the rest of the map.",
   "seed": "https://nadia.xyz/jhanas",
-  "bar": "Keep only full, scraped essays with Nadia-level charge: first-person precision or tightly argued writing about absorption, nimitta, piti/sukha, cessations, stream entry, noting vs concentration, pragmatic dharma, fire kasina, or contemplative neuroscience that is actually written. No Headspace blogs, listicles, retreat ads, thin dharma-explainers, homepages, or stubs.",
+  "bar": "Full essays with Nadia-level charge. Meditation-related: absorption, noting, cessations, stream entry, dark night, first-person retreat, contemplative science that is written. No Headspace, listicles, retreat ads, or industry thinkpieces.",
   "articles": [
     {
       "title": "How to do the jhanas",
@@ -165,6 +165,114 @@
       "title": "Fire Kasina Hints for Shinzen Meditators",
       "url": "https://deconstructingyourself.com/fire-kasina-hints.html",
       "host": "deconstructingyourself.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Progress of Insight",
+      "url": "https://www.accesstoinsight.org/lib/authors/mahasi/progress.html",
+      "host": "accesstoinsight.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Path of Concentration & Mindfulness",
+      "url": "https://www.dhammatalks.org/books/NobleStrategy/Section0011.html",
+      "host": "dhammatalks.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "No-self or Not-self?",
+      "url": "https://www.accesstoinsight.org/lib/authors/thanissaro/notself2.html",
+      "host": "accesstoinsight.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "Our Real Home",
+      "url": "https://www.accesstoinsight.org/lib/thai/chah/bl111.html",
+      "host": "accesstoinsight.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Power of Gone: Just Note Gone",
+      "url": "https://tricycle.org/magazine/power-gone/",
+      "host": "tricycle.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "Spirituality and Intellectual Honesty",
+      "url": "https://www.philosophie-e.fb05.uni-mainz.de/files/2013/07/Metzinger_SIR_2017_English.pdf",
+      "host": "philosophie-e.fb05.uni-mainz.de",
+      "shelf": "hop"
+    },
+    {
+      "title": "Random opinions about the path",
+      "url": "https://sashachapin.substack.com/p/random-opinions-about-the-path",
+      "host": "sashachapin.substack.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "The science behind the world's most miraculous nap, or, Nirodha Samāpatti",
+      "url": "https://sashachapin.substack.com/p/the-science-behind-the-worlds-most",
+      "host": "sashachapin.substack.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Stream Entry, part two",
+      "url": "https://www.victorbyrd.com/my-life/2020/10/19/stream-entry-part-two",
+      "host": "victorbyrd.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Equanimity",
+      "url": "https://www.mctb.org/mctb2/table-of-contents/part-iv-insight/30-the-progress-of-insight/11-equanimity/",
+      "host": "mctb.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "Why Goenka's Vipassana is so culty",
+      "url": "https://davidleon.blog/2019/11/08/why-goenkas-vipassana-is-so-culty/",
+      "host": "davidleon.blog",
+      "shelf": "hop"
+    },
+    {
+      "title": "No View is Right View",
+      "url": "https://buddhismnow.com/2018/07/20/no-view-is-right-view-by-ajahn-sumedho/",
+      "host": "buddhismnow.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Secular Meditation?",
+      "url": "https://hardcorezen.info/secular-meditation/3091",
+      "host": "hardcorezen.info",
+      "shelf": "hop"
+    },
+    {
+      "title": "On Having No Head",
+      "url": "https://theawakenedeye.com/pages/on-having-no-head/",
+      "host": "theawakenedeye.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Emptiness Requires Contextualization: On Rob Burbea's Seeing That Frees",
+      "url": "https://www.buddhistinquiry.org/article/emptiness-requires-contextualization-on-rob-burbeas-seeing-that-frees/",
+      "host": "buddhistinquiry.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "Willing to Experience our Suffering",
+      "url": "https://www.awakin.org/v2/read/view.php?tid=670",
+      "host": "awakin.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Varieties of Contemplative Experience",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176239",
+      "host": "journals.plos.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "Betrayed by the Breath",
+      "url": "https://www.cheetahhouse.org/a-breath-too-far",
+      "host": "cheetahhouse.org",
       "shelf": "hop"
     }
   ]
