@@ -1,4 +1,4 @@
-const C = "trails-shell-v13";
+const C = "trails-shell-v14";
 const SHELL = ["./", "./index.html", "./articles.json", "./collections.json", "./collections/taki.json", "./collections/luna.json", "./collections/mindbend.json", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(C).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
