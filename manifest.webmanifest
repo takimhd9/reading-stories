@@ -1,0 +1,11 @@
+{
+  "name": "Trails",
+  "short_name": "Trails",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b0a09",
+  "theme_color": "#0b0a09",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
