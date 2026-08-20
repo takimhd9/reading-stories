@@ -164,6 +164,8 @@
     }
     .sheet button:hover, .sheet a:hover { background: rgba(255,255,255,0.07); }
     .sheet .hint { color: var(--dim); font-size: 12px; }
+    .sheet button.on { background: rgba(255,255,255,0.07); }
+    .sheet .sec { padding: 8px 12px 2px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
     .empty {
       display: none; position: absolute; inset: 0;
       background: var(--bar);
@@ -190,6 +192,8 @@
         <a id="open" target="_blank" rel="noopener">Open original <span class="hint">↗</span></a>
         <button type="button" id="shuffle">Shuffle <span class="hint">S</span></button>
         <button type="button" id="mode">Saved only <span class="hint" id="modehint">Off</span></button>
+        <div class="sec">Collections</div>
+        <div id="cols"></div>
       </div>
       <div class="dock">
         <button type="button" id="prev" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -205,6 +209,7 @@
   <script>
     const KEY = "trails-favs-v1";
     const MODE = "trails-view";
+    const COLKEY = "trails-col-v1";
     const NO_FRAME = new Set([
       "a16z.com",
       "anthropic.com",
@@ -238,6 +243,7 @@
       "yegge.ai"
     ]);
     let all = [], deck = [], i = 0, savedOnly = false, favs = new Set();
+    let catalogs = [], col = null;
     let readerOn = false;
     let shownReader = "";
     const cache = new Map();
@@ -366,7 +372,7 @@
       const it = current();
       $("empty").classList.toggle("on", !it);
       $("modehint").textContent = savedOnly ? "On" : "Off";
-      $("brand").textContent = savedOnly ? "Saved" : "Trails";
+      $("brand").textContent = savedOnly ? "Saved" : (col && col.name ? col.name : "Trails");
       const forced = blocksFrame(it);
       const reading = readerOn || forced;
       app.classList.toggle("read", reading);
@@ -450,10 +456,57 @@
 
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 
+    function wantedCol() {
+      const q = new URLSearchParams(location.search).get("c");
+      return q || localStorage.getItem(COLKEY) || "taki";
+    }
+    function drawCols() {
+      const box = $("cols");
+      if (!box) return;
+      box.innerHTML = "";
+      catalogs.forEach((c) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.innerHTML = c.name + ' <span class="hint">' + c.count + "</span>";
+        if (col && c.id === col.id) b.classList.add("on");
+        b.onclick = () => switchCol(c.id);
+        box.appendChild(b);
+      });
+    }
+    function applyCol(data) {
+      col = data;
+      all = data.articles || [];
+      localStorage.setItem(COLKEY, data.id);
+      savedOnly = false;
+      deck = shuffle(all);
+      i = 0;
+      shownReader = "";
+      if (frame.dataset.url) { frame.src = "about:blank"; frame.dataset.url = ""; }
+      drawCols();
+      show();
+    }
+    function switchCol(id) {
+      const meta = catalogs.find((c) => c.id === id) || catalogs[0];
+      if (!meta) return;
+      app.classList.remove("menu");
+      if (col && col.id === meta.id) return;
+      fetch(meta.file).then((r) => r.json()).then(applyCol);
+    }
     loadFavs();
-    fetch("articles.json")
+    fetch("collections.json")
       .then((r) => r.json())
-      .then((data) => { all = data; deck = shuffle(data); show(); });
+      .then((list) => {
+        catalogs = list;
+        const id = wantedCol();
+        const meta = list.find((c) => c.id === id) || list[0];
+        return fetch(meta.file).then((r) => r.json());
+      })
+      .then(applyCol)
+      .catch(() => {
+        fetch("articles.json").then((r) => r.json()).then((data) => {
+          applyCol({ id: "taki", name: "Taki", articles: data });
+        });
+      });
   </script>
 </body>
 </html>
