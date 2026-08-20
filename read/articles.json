@@ -1,0 +1,824 @@
+[
+  {
+    "title": "The Scaling Hypothesis",
+    "url": "https://gwern.net/scaling-hypothesis",
+    "shelf": "path",
+    "host": "gwern.net"
+  },
+  {
+    "title": "Death Note: L, Anonymity & Eluding Entropy",
+    "url": "https://gwern.net/death-note-anonymity",
+    "shelf": "path",
+    "host": "gwern.net"
+  },
+  {
+    "title": "How To Be An Educated Layman",
+    "url": "https://srconstantin.github.io/2021/06/09/Educated-Layman.html",
+    "shelf": "path",
+    "host": "srconstantin.github.io"
+  },
+  {
+    "title": "Meditations on Moloch",
+    "url": "https://slatestarcodex.com/2014/07/30/meditations-on-moloch/",
+    "shelf": "path",
+    "host": "slatestarcodex.com"
+  },
+  {
+    "title": "Status as a Service",
+    "url": "https://www.eugenewei.com/blog/2019/2/19/status-as-a-service",
+    "shelf": "path",
+    "host": "eugenewei.com"
+  },
+  {
+    "title": "The Housing Theory of Everything",
+    "url": "https://worksinprogress.co/issue/the-housing-theory-of-everything/",
+    "shelf": "path",
+    "host": "worksinprogress.co"
+  },
+  {
+    "title": "How Life Sciences Actually Work",
+    "url": "https://guzey.com/how-life-sciences-actually-work/",
+    "shelf": "path",
+    "host": "guzey.com"
+  },
+  {
+    "title": "Learnable Programming",
+    "url": "http://worrydream.com/LearnableProgramming/",
+    "shelf": "path",
+    "host": "worrydream.com"
+  },
+  {
+    "title": "Shtetl-Optimized",
+    "url": "https://scottaaronson.blog",
+    "shelf": "path",
+    "host": "scottaaronson.blog"
+  },
+  {
+    "title": "BQP Partners",
+    "url": "https://venture.angellist.com/bqp-partners/syndicate",
+    "shelf": "catalog",
+    "host": "venture.angellist.com"
+  },
+  {
+    "title": "Energy Superabundance",
+    "url": "https://www.thecgo.org/research/energy-superabundance/",
+    "shelf": "catalog",
+    "host": "thecgo.org"
+  },
+  {
+    "title": "The Diff",
+    "url": "https://www.thediff.co/archive/about-best-of-faq-25df97a74467/",
+    "shelf": "catalog",
+    "host": "thediff.co"
+  },
+  {
+    "title": "interfluidity",
+    "url": "https://drafts.interfluidity.com/archive.html",
+    "shelf": "catalog",
+    "host": "drafts.interfluidity.com"
+  },
+  {
+    "title": "Unikowsky",
+    "url": "https://adamunikowsky.substack.com/p/in-ai-we-trust",
+    "shelf": "catalog",
+    "host": "adamunikowsky.substack.com"
+  },
+  {
+    "title": "Olah",
+    "url": "https://colah.github.io/",
+    "shelf": "catalog",
+    "host": "colah.github.io"
+  },
+  {
+    "title": "Zoom In",
+    "url": "https://distill.pub/2020/circuits/zoom-in/",
+    "shelf": "catalog",
+    "host": "distill.pub"
+  },
+  {
+    "title": "Transformer Circuits",
+    "url": "https://transformer-circuits.pub/",
+    "shelf": "catalog",
+    "host": "transformer-circuits.pub"
+  },
+  {
+    "title": "Situational Awareness",
+    "url": "https://situational-awareness.ai/",
+    "shelf": "catalog",
+    "host": "situational-awareness.ai"
+  },
+  {
+    "title": "Vitalik local LLMs",
+    "url": "https://vitalik.eth.limo/general/2026/04/02/secure_llms.html",
+    "shelf": "catalog",
+    "host": "vitalik.eth.limo"
+  },
+  {
+    "title": "Collison Fast",
+    "url": "https://patrickcollison.com/fast",
+    "shelf": "catalog",
+    "host": "patrickcollison.com"
+  },
+  {
+    "title": "Questions",
+    "url": "https://patrickcollison.com/questions",
+    "shelf": "catalog",
+    "host": "patrickcollison.com"
+  },
+  {
+    "title": "Stripe Press",
+    "url": "https://press.stripe.com/",
+    "shelf": "catalog",
+    "host": "press.stripe.com"
+  },
+  {
+    "title": "Nadia",
+    "url": "https://nadia.xyz/idea-machines",
+    "shelf": "catalog",
+    "host": "nadia.xyz"
+  },
+  {
+    "title": "Samo \u2014 live vs dead players",
+    "url": "https://samoburja.com/live-versus-dead-players/",
+    "shelf": "catalog",
+    "host": "samoburja.com"
+  },
+  {
+    "title": "Why Figma Wins",
+    "url": "https://kwokchain.com/2020/06/19/why-figma-wins/",
+    "shelf": "catalog",
+    "host": "kwokchain.com"
+  },
+  {
+    "title": "Roots of Progress",
+    "url": "https://blog.rootsofprogress.org/a-new-philosophy-of-progress",
+    "shelf": "catalog",
+    "host": "blog.rootsofprogress.org"
+  },
+  {
+    "title": "On agency",
+    "url": "https://www.henrikkarlsson.xyz/p/agency",
+    "shelf": "catalog",
+    "host": "henrikkarlsson.xyz"
+  },
+  {
+    "title": "IFP",
+    "url": "https://ifp.org/what-lessons-should-the-u-s-learn-from-deepseek/",
+    "shelf": "catalog",
+    "host": "ifp.org"
+  },
+  {
+    "title": "Ramez Naam",
+    "url": "https://rameznaam.com/2020/05/14/solars-future-is-insanely-cheap-2020/",
+    "shelf": "catalog",
+    "host": "rameznaam.com"
+  },
+  {
+    "title": "Lyn Alden",
+    "url": "https://www.lynalden.com/september-2024-newsletter/",
+    "shelf": "catalog",
+    "host": "lynalden.com"
+  },
+  {
+    "title": "Sea Change",
+    "url": "https://www.oaktreecapital.com/insights/memo/sea-change",
+    "shelf": "catalog",
+    "host": "oaktreecapital.com"
+  },
+  {
+    "title": "Setser",
+    "url": "https://www.cfr.org/articles/chinas-massive-surplus-everywhere-yet-imf-still-has-trouble-seeing-it-clearly",
+    "shelf": "catalog",
+    "host": "cfr.org"
+  },
+  {
+    "title": "Hamming",
+    "url": "https://www.cs.virginia.edu/~robins/YouAndYourResearch.html",
+    "shelf": "catalog",
+    "host": "cs.virginia.edu"
+  },
+  {
+    "title": "Worse is Better",
+    "url": "https://dreamsongs.com/WorseIsBetter.html",
+    "shelf": "catalog",
+    "host": "dreamsongs.com"
+  },
+  {
+    "title": "Idle Words",
+    "url": "https://idlewords.com/talks/internet_with_a_human_face.htm",
+    "shelf": "catalog",
+    "host": "idlewords.com"
+  },
+  {
+    "title": "Mickens",
+    "url": "https://www.usenix.org/system/files/login-logout-issue_1311.pdf",
+    "shelf": "catalog",
+    "host": "usenix.org"
+  },
+  {
+    "title": "Weng",
+    "url": "https://lilianweng.github.io/posts/2023-06-23-agent/",
+    "shelf": "catalog",
+    "host": "lilianweng.github.io"
+  },
+  {
+    "title": "Anthropic research",
+    "url": "https://www.anthropic.com/research/tracing-thoughts-language-model",
+    "shelf": "catalog",
+    "host": "anthropic.com"
+  },
+  {
+    "title": "Interconnects",
+    "url": "https://www.interconnects.ai/p/notes-from-inside-chinas-ai-labs",
+    "shelf": "catalog",
+    "host": "interconnects.ai"
+  },
+  {
+    "title": "Flashbots",
+    "url": "https://writings.flashbots.net/mev-and-the-limits-of-scaling",
+    "shelf": "catalog",
+    "host": "writings.flashbots.net"
+  },
+  {
+    "title": "Maximum Progress",
+    "url": "https://www.maximum-progress.com/p/something-is-getting-harder-but-its",
+    "shelf": "catalog",
+    "host": "maximum-progress.com"
+  },
+  {
+    "title": "Hoel",
+    "url": "https://www.theintrinsicperspective.com/p/anthropic-runs-like-wile-e-coyote",
+    "shelf": "catalog",
+    "host": "theintrinsicperspective.com"
+  },
+  {
+    "title": "the Psmiths",
+    "url": "https://www.thepsmiths.com/p/review-the-real-north-korea-by-andrei",
+    "shelf": "catalog",
+    "host": "thepsmiths.com"
+  },
+  {
+    "title": "It\u2019s Time to Build",
+    "url": "https://a16z.com/its-time-to-build/",
+    "shelf": "catalog",
+    "host": "a16z.com"
+  },
+  {
+    "title": "What Happened: OpenAI and HuggingFace",
+    "url": "https://thezvi.substack.com/p/what-happened-openai-and-huggingface",
+    "shelf": "catalog",
+    "host": "thezvi.substack.com"
+  },
+  {
+    "title": "Jeff Kaufman",
+    "url": "https://www.jefftk.com/index",
+    "shelf": "catalog",
+    "host": "jefftk.com"
+  },
+  {
+    "title": "Natural Independence Incentives",
+    "url": "https://www.jefftk.com/p/natural-independence-incentives",
+    "shelf": "catalog",
+    "host": "jefftk.com"
+  },
+  {
+    "title": "Zack M. Davis",
+    "url": "http://zackmdavis.net/blog/",
+    "shelf": "catalog",
+    "host": "zackmdavis.net"
+  },
+  {
+    "title": "Why I am not a Quaker",
+    "url": "http://benjaminrosshoffman.com/why-i-am-not-a-quaker-even-though-it-often-seems-as-though-i-should-be/",
+    "shelf": "catalog",
+    "host": "benjaminrosshoffman.com"
+  },
+  {
+    "title": "Labour repression and the Indo-Japanese divergence",
+    "url": "https://pseudoerasmus.com/2017/10/02/ijd/",
+    "shelf": "catalog",
+    "host": "pseudoerasmus.com"
+  },
+  {
+    "title": "How mathematics built the modern world",
+    "url": "https://worksinprogress.co/issue/how-mathematics-built-the-modern-world/",
+    "shelf": "catalog",
+    "host": "worksinprogress.co"
+  },
+  {
+    "title": "EconLib Caplan",
+    "url": "https://www.econlib.org/author/bcaplan/",
+    "shelf": "catalog",
+    "host": "econlib.org"
+  },
+  {
+    "title": "Ars Notoria",
+    "url": "https://publicdomainreview.org/essay/ars-notoria/",
+    "shelf": "catalog",
+    "host": "publicdomainreview.org"
+  },
+  {
+    "title": "What\u2019s Wrong with Social Science",
+    "url": "https://fantasticanachronism.com/2020/09/11/whats-wrong-with-social-science-and-how-to-fix-it/",
+    "shelf": "catalog",
+    "host": "fantasticanachronism.com"
+  },
+  {
+    "title": "The Use of Knowledge in Society",
+    "url": "https://www.econlib.org/library/Essays/hykKnw.html",
+    "shelf": "catalog",
+    "host": "econlib.org"
+  },
+  {
+    "title": "nonprofit / bank fraud",
+    "url": "https://www.bitsaboutmoney.com/archive/nonprofit-indicted-bank-fraud/",
+    "shelf": "catalog",
+    "host": "bitsaboutmoney.com"
+  },
+  {
+    "title": "Matt Levine",
+    "url": "https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine",
+    "shelf": "catalog",
+    "host": "bloomberg.com"
+  },
+  {
+    "title": "TikTok and the Sorting Hat",
+    "url": "https://www.eugenewei.com/blog/2020/8/3/tiktok-and-the-sorting-hat",
+    "shelf": "catalog",
+    "host": "eugenewei.com"
+  },
+  {
+    "title": "Seeing Like an Algorithm",
+    "url": "https://www.eugenewei.com/blog/2020/9/18/seeing-like-an-algorithm",
+    "shelf": "catalog",
+    "host": "eugenewei.com"
+  },
+  {
+    "title": "Commoncog",
+    "url": "https://commoncog.com/blog/",
+    "shelf": "catalog",
+    "host": "commoncog.com"
+  },
+  {
+    "title": "Bayesian Investor",
+    "url": "https://bayesianinvestor.com/blog",
+    "shelf": "catalog",
+    "host": "bayesianinvestor.com"
+  },
+  {
+    "title": "Oratomic Series A",
+    "url": "https://www.oratomic.com/news/SeriesA",
+    "shelf": "catalog",
+    "host": "oratomic.com"
+  },
+  {
+    "title": "Symbolics / Lisp machines",
+    "url": "https://danluu.com/symbolics-lisp-machines/",
+    "shelf": "catalog",
+    "host": "danluu.com"
+  },
+  {
+    "title": "su3su2u1 physics",
+    "url": "https://danluu.com/su3su2u1/physics/",
+    "shelf": "catalog",
+    "host": "danluu.com"
+  },
+  {
+    "title": "You should write blogs",
+    "url": "https://sites.google.com/site/steveyegge2/you-should-write-blogs",
+    "shelf": "catalog",
+    "host": "sites.google.com"
+  },
+  {
+    "title": "apenwarr",
+    "url": "https://apenwarr.ca/log/",
+    "shelf": "catalog",
+    "host": "apenwarr.ca"
+  },
+  {
+    "title": "Choose Boring Technology",
+    "url": "http://mcfunley.com/choose-boring-technology",
+    "shelf": "catalog",
+    "host": "mcfunley.com"
+  },
+  {
+    "title": "Write code that is easy to delete",
+    "url": "https://programmingisterrible.com/post/139222674273/write-code-that-is-easy-to-delete-not-easy-to",
+    "shelf": "catalog",
+    "host": "programmingisterrible.com"
+  },
+  {
+    "title": "Yossi Kreinin",
+    "url": "http://yosefk.com/blog/",
+    "shelf": "catalog",
+    "host": "yosefk.com"
+  },
+  {
+    "title": "Rachel by the Bay",
+    "url": "http://rachelbythebay.com/w/",
+    "shelf": "catalog",
+    "host": "rachelbythebay.com"
+  },
+  {
+    "title": "Marc Brooker",
+    "url": "https://brooker.co.za/blog/",
+    "shelf": "catalog",
+    "host": "brooker.co.za"
+  },
+  {
+    "title": "Chip Huyen",
+    "url": "https://huyenchip.com/blog/",
+    "shelf": "catalog",
+    "host": "huyenchip.com"
+  },
+  {
+    "title": "John D. Cook",
+    "url": "https://www.johndcook.com/blog",
+    "shelf": "catalog",
+    "host": "johndcook.com"
+  },
+  {
+    "title": "Brandur",
+    "url": "https://brandur.org/articles",
+    "shelf": "catalog",
+    "host": "brandur.org"
+  },
+  {
+    "title": "Gwern \u2014 Spaced Repetition",
+    "url": "https://gwern.net/spaced-repetition",
+    "shelf": "catalog",
+    "host": "gwern.net"
+  },
+  {
+    "title": "Most Important Century",
+    "url": "https://www.cold-takes.com/most-important-century/",
+    "shelf": "catalog",
+    "host": "cold-takes.com"
+  },
+  {
+    "title": "Where's Today's Beethoven?",
+    "url": "https://www.cold-takes.com/wheres-todays-beethoven/",
+    "shelf": "catalog",
+    "host": "cold-takes.com"
+  },
+  {
+    "title": "All possible views about humanity\u2019s future are wild",
+    "url": "https://www.cold-takes.com/all-possible-views-about-humanitys-future-are-wild/",
+    "shelf": "catalog",
+    "host": "cold-takes.com"
+  },
+  {
+    "title": "Machines of Loving Grace / policy",
+    "url": "https://darioamodei.com/post/policy-on-the-ai-exponential",
+    "shelf": "catalog",
+    "host": "darioamodei.com"
+  },
+  {
+    "title": "Why compute might get 10x more expensive",
+    "url": "https://www.dwarkesh.com/p/why-compute-might-get-10x-more-expensive",
+    "shelf": "catalog",
+    "host": "dwarkesh.com"
+  },
+  {
+    "title": "How long until AI doesn\u2019t need humans",
+    "url": "https://asteriskmag.com/issues/14/how-long-until-ai-doesn-t-need-humans",
+    "shelf": "catalog",
+    "host": "asteriskmag.com"
+  },
+  {
+    "title": "yegge.ai \u2014 The Shape of Things to Come",
+    "url": "https://yegge.ai/essays/the-shape-of-things-to-come/",
+    "shelf": "catalog",
+    "host": "yegge.ai"
+  },
+  {
+    "title": "404 Media \u2014 old books / AI slop",
+    "url": "https://www.404media.co/ai-companies-are-buying-tons-of-old-books-because-theyre-free-of-ai-slop/",
+    "shelf": "catalog",
+    "host": "404media.co"
+  },
+  {
+    "title": "NY Mag \u2014 Hans Moravec",
+    "url": "https://nymag.com/intelligencer/article/hans-moravec-interview.html",
+    "shelf": "catalog",
+    "host": "nymag.com"
+  },
+  {
+    "title": "Scott Aaronson, recent",
+    "url": "https://scottaaronson.blog/?p=9979",
+    "shelf": "catalog",
+    "host": "scottaaronson.blog"
+  },
+  {
+    "title": "owlposting \u2014 organoids",
+    "url": "https://www.owlposting.com/p/why-havent-organoids-solved-all-of",
+    "shelf": "catalog",
+    "host": "owlposting.com"
+  },
+  {
+    "title": "Three-Toed Sloth",
+    "url": "http://bactra.org/weblog/",
+    "shelf": "catalog",
+    "host": "bactra.org"
+  },
+  {
+    "title": "Andart",
+    "url": "http://aleph.se/andart2",
+    "shelf": "catalog",
+    "host": "aleph.se"
+  },
+  {
+    "title": "The New Atlantis \u2014 Do Elephants Have Souls",
+    "url": "https://www.thenewatlantis.com/publications/do-elephants-have-souls",
+    "shelf": "catalog",
+    "host": "thenewatlantis.com"
+  },
+  {
+    "title": "Ezra Klein interview",
+    "url": "https://www.nytimes.com/2023/03/14/podcasts/transcript-ezra-klein-interviews-dan-wang.html",
+    "shelf": "catalog",
+    "host": "nytimes.com"
+  },
+  {
+    "title": "Leninist technocracy with grand opera",
+    "url": "https://www.statecraft.pub/p/leninist-technocracy-with-grand-opera",
+    "shelf": "catalog",
+    "host": "statecraft.pub"
+  },
+  {
+    "title": "There Is No Antimemetics Division",
+    "url": "https://qntm.org/antimemetics",
+    "shelf": "catalog",
+    "host": "qntm.org"
+  },
+  {
+    "title": "The Gervais Principle",
+    "url": "https://ribbonfarm.com/2009/10/07/the-gervais-principle-or-the-office-according-to-the-office/",
+    "shelf": "catalog",
+    "host": "ribbonfarm.com"
+  },
+  {
+    "title": "Legibility",
+    "url": "https://ribbonfarm.com/2010/07/26/a-big-little-idea-called-legibility/",
+    "shelf": "catalog",
+    "host": "ribbonfarm.com"
+  },
+  {
+    "title": "Internet of Beefs",
+    "url": "https://ribbonfarm.com/2020/01/16/the-internet-of-beefs/",
+    "shelf": "catalog",
+    "host": "ribbonfarm.com"
+  },
+  {
+    "title": "Charlie Stross",
+    "url": "http://www.antipope.org/charlie/blog-static/",
+    "shelf": "catalog",
+    "host": "antipope.org"
+  },
+  {
+    "title": "rifters",
+    "url": "https://www.rifters.com/crawl",
+    "shelf": "catalog",
+    "host": "rifters.com"
+  },
+  {
+    "title": "Afghanistan",
+    "url": "https://mattlakeman.org/2026/01/05/notes-on-afghanistan/",
+    "shelf": "catalog",
+    "host": "mattlakeman.org"
+  },
+  {
+    "title": "Infinite Jest",
+    "url": "https://mattlakeman.org/2026/03/26/infinite-jest-extraction/",
+    "shelf": "catalog",
+    "host": "mattlakeman.org"
+  },
+  {
+    "title": "Coming of a New Sun",
+    "url": "https://vgel.me/fiction/coming-of-a-new-sun/",
+    "shelf": "catalog",
+    "host": "vgel.me"
+  },
+  {
+    "title": "Julia",
+    "url": "https://borretti.me/fiction/julia",
+    "shelf": "catalog",
+    "host": "borretti.me"
+  },
+  {
+    "title": "Casey Handmer \u2014 to conquer the primary energy layer",
+    "url": "https://caseyhandmer.wordpress.com/2025/04/08/to-conquer-the-primary-energy-consumption-layer-of-our-entire-civilization/",
+    "shelf": "frontier",
+    "host": "caseyhandmer.wordpress.com"
+  },
+  {
+    "title": "Austin Vernon \u2014 expanding the universal marginal energy source",
+    "url": "https://www.austinvernon.site/blog/expandingenergy.html",
+    "shelf": "frontier",
+    "host": "austinvernon.site"
+  },
+  {
+    "title": "solar and batteries for generic use cases",
+    "url": "https://caseyhandmer.wordpress.com/2024/11/09/solar-and-batteries-for-generic-use-cases/",
+    "shelf": "frontier",
+    "host": "caseyhandmer.wordpress.com"
+  },
+  {
+    "title": "direct current data centers",
+    "url": "https://caseyhandmer.wordpress.com/2026/01/30/direct-current-data-centers/",
+    "shelf": "frontier",
+    "host": "caseyhandmer.wordpress.com"
+  },
+  {
+    "title": "Speed can reindustrialize America",
+    "url": "https://www.austinvernon.site/blog/manufacturing.html",
+    "shelf": "frontier",
+    "host": "austinvernon.site"
+  },
+  {
+    "title": "The Story So Far",
+    "url": "https://www.netinterest.co/p/the-story-so-far",
+    "shelf": "frontier",
+    "host": "netinterest.co"
+  },
+  {
+    "title": "Depression is a choice",
+    "url": "https://www.interfluidity.com/v2/3212.html",
+    "shelf": "frontier",
+    "host": "interfluidity.com"
+  },
+  {
+    "title": "Neural networks, manifolds, and topology",
+    "url": "https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/",
+    "shelf": "frontier",
+    "host": "colah.github.io"
+  },
+  {
+    "title": "Understanding LSTMs",
+    "url": "https://colah.github.io/posts/2015-08-Understanding-LSTMs/",
+    "shelf": "frontier",
+    "host": "colah.github.io"
+  },
+  {
+    "title": "A Mathematical Framework for Transformer Circuits",
+    "url": "https://transformer-circuits.pub/2021/framework/index.html",
+    "shelf": "frontier",
+    "host": "transformer-circuits.pub"
+  },
+  {
+    "title": "From GPT-4 to AGI",
+    "url": "https://situational-awareness.ai/from-gpt-4-to-agi/",
+    "shelf": "frontier",
+    "host": "situational-awareness.ai"
+  },
+  {
+    "title": "Racing to the trillion-dollar cluster",
+    "url": "https://situational-awareness.ai/racing-to-the-trillion-dollar-cluster/",
+    "shelf": "frontier",
+    "host": "situational-awareness.ai"
+  },
+  {
+    "title": "Progress",
+    "url": "https://patrickcollison.com/progress",
+    "shelf": "frontier",
+    "host": "patrickcollison.com"
+  },
+  {
+    "title": "Advice",
+    "url": "https://patrickcollison.com/advice",
+    "shelf": "frontier",
+    "host": "patrickcollison.com"
+  },
+  {
+    "title": "The tyranny of ideas",
+    "url": "https://nadia.xyz/ideas",
+    "shelf": "frontier",
+    "host": "nadia.xyz"
+  },
+  {
+    "title": "Open source",
+    "url": "https://nadia.xyz/open-source/",
+    "shelf": "frontier",
+    "host": "nadia.xyz"
+  },
+  {
+    "title": "Functional institutions are the exception",
+    "url": "https://samoburja.com/functional-institutions-are-the-exception/",
+    "shelf": "frontier",
+    "host": "samoburja.com"
+  },
+  {
+    "title": "Great Founder Theory",
+    "url": "https://samoburja.com/great-founder-theory/",
+    "shelf": "frontier",
+    "host": "samoburja.com"
+  },
+  {
+    "title": "Intellectual Dark Matter",
+    "url": "https://medium.com/the-long-now-foundation/intellectual-dark-matter-2e5890aa8d8f",
+    "shelf": "frontier",
+    "host": "medium.com"
+  },
+  {
+    "title": "The case for clinical trial abundance",
+    "url": "https://ifp.org/the-case-for-clinical-trial-abundance/",
+    "shelf": "frontier",
+    "host": "ifp.org"
+  },
+  {
+    "title": "Psychology is experimental history",
+    "url": "https://www.experimental-history.com/p/psychology-is-experimental-history-4eb",
+    "shelf": "frontier",
+    "host": "experimental-history.com"
+  },
+  {
+    "title": "The third phase of clean energy",
+    "url": "https://rameznaam.com/2019/04/02/the-third-phase-of-clean-energy-will-be-the-most-disruptive-yet/",
+    "shelf": "frontier",
+    "host": "rameznaam.com"
+  },
+  {
+    "title": "How cheap can solar get?",
+    "url": "https://www.rameznaam.com/p/how-cheap-can-solar-get-very-cheap-indeed",
+    "shelf": "frontier",
+    "host": "rameznaam.com"
+  },
+  {
+    "title": "A century of fiscal and monetary policy",
+    "url": "https://www.lynalden.com/fiscal-and-monetary-policy/",
+    "shelf": "frontier",
+    "host": "lynalden.com"
+  },
+  {
+    "title": "Further thoughts on Sea Change",
+    "url": "https://www.oaktreecapital.com/insights/memo/further-thoughts-on-sea-change",
+    "shelf": "frontier",
+    "host": "oaktreecapital.com"
+  },
+  {
+    "title": "China\u2019s data still doesn\u2019t add up",
+    "url": "https://www.cfr.org/articles/chinas-data-still-doesnt-add",
+    "shelf": "frontier",
+    "host": "cfr.org"
+  },
+  {
+    "title": "Web Design: The First 100 Years",
+    "url": "https://idlewords.com/talks/web_design_first_100_years.htm",
+    "shelf": "frontier",
+    "host": "idlewords.com"
+  },
+  {
+    "title": "The Website Obesity Crisis",
+    "url": "https://idlewords.com/talks/website_obesity.htm",
+    "shelf": "frontier",
+    "host": "idlewords.com"
+  },
+  {
+    "title": "Artemis II is not safe to fly",
+    "url": "https://idlewords.com/2026/03/artemis_ii_is_not_safe_to_fly.htm",
+    "shelf": "frontier",
+    "host": "idlewords.com"
+  },
+  {
+    "title": "Why we think",
+    "url": "https://lilianweng.github.io/posts/2025-05-01-thinking/",
+    "shelf": "frontier",
+    "host": "lilianweng.github.io"
+  },
+  {
+    "title": "Mapping the mind of a large language model",
+    "url": "https://www.anthropic.com/research/mapping-mind-language-model",
+    "shelf": "frontier",
+    "host": "anthropic.com"
+  },
+  {
+    "title": "Opinionated annotated list of favourite papers",
+    "url": "https://www.alignmentforum.org/posts/NfFST5Mio7BCAQHPA/an-extremely-opinionated-annotated-list-of-my-favourite-1",
+    "shelf": "frontier",
+    "host": "alignmentforum.org"
+  },
+  {
+    "title": "State of the blog, mid-2026",
+    "url": "https://www.interconnects.ai/p/state-of-the-blog-mid-2026",
+    "shelf": "frontier",
+    "host": "interconnects.ai"
+  },
+  {
+    "title": "The future of MEV is SUAVE",
+    "url": "https://writings.flashbots.net/the-future-of-mev-is-suave",
+    "shelf": "frontier",
+    "host": "writings.flashbots.net"
+  },
+  {
+    "title": "2025: the year in review(s)",
+    "url": "https://www.thepsmiths.com/p/2025-the-year-in-reviews",
+    "shelf": "frontier",
+    "host": "thepsmiths.com"
+  },
+  {
+    "title": "Julian Lehr \u2014 the case against conversational interfaces",
+    "url": "https://julian.digital/2025/03/27/the-case-against-conversational-interfaces/",
+    "shelf": "frontier",
+    "host": "julian.digital"
+  }
+]
