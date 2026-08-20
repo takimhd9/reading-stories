@@ -12,5 +12,12 @@
     "blurb": "Culture, design, and how we live with machines. All new to her.",
     "file": "collections/luna.json",
     "count": 28
+  },
+  {
+    "id": "mindbend",
+    "name": "Mindbend",
+    "blurb": "Jhanas and absorption. Trainable states, first-person, no mindfulness-app filler.",
+    "file": "collections/mindbend.json",
+    "count": 27
   }
 ]
