@@ -1,0 +1,171 @@
+{
+  "id": "mindbend",
+  "name": "Mindbend",
+  "blurb": "Jhanas and absorption. Trainable states, first-person, no mindfulness-app filler.",
+  "seed": "https://nadia.xyz/jhanas",
+  "bar": "Keep only full, scraped essays with Nadia-level charge: first-person precision or tightly argued writing about absorption, nimitta, piti/sukha, cessations, stream entry, noting vs concentration, pragmatic dharma, fire kasina, or contemplative neuroscience that is actually written. No Headspace blogs, listicles, retreat ads, thin dharma-explainers, homepages, or stubs.",
+  "articles": [
+    {
+      "title": "How to do the jhanas",
+      "url": "https://nadia.xyz/jhanas",
+      "host": "nadia.xyz",
+      "shelf": "seed"
+    },
+    {
+      "title": "Manufacturing Bliss",
+      "url": "https://asteriskmag.com/issues/06/manufacturing-bliss",
+      "host": "asteriskmag.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Neural Annealing: Toward a Neural Theory of Everything",
+      "url": "https://opentheory.net/2019/11/neural-annealing-toward-a-neural-theory-of-everything/",
+      "host": "opentheory.net",
+      "shelf": "hop"
+    },
+    {
+      "title": "Instruction for Entering Jhana",
+      "url": "https://www.leighb.com/jhana3.htm",
+      "host": "leighb.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Sharpening Manjushri's Sword: The Jhanas in Theravadan Buddhist Meditation",
+      "url": "https://www.leighb.com/jhana2a.htm",
+      "host": "leighb.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Jhānas at the Forest Refuge",
+      "url": "https://leighb.com/jhana_fr.htm",
+      "host": "leighb.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Wide World of Jhana",
+      "url": "https://www.mctb.org/mctb2/table-of-contents/part-iii-the-samatha-jhanas/26-the-wide-world-of-jhana/",
+      "host": "mctb.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Concentration States (Shamatha Jhanas)",
+      "url": "https://www.mctb.org/mctb2/table-of-contents/part-iii-the-samatha-jhanas/27-the-concentration-states-shamatha-jhanas/",
+      "host": "mctb.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Formless Realms",
+      "url": "https://www.mctb.org/mctb2/table-of-contents/part-iii-the-samatha-jhanas/28-the-formless-realms/",
+      "host": "mctb.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Vipassana Jhanas",
+      "url": "https://www.mctb.org/mctb2/table-of-contents/part-iv-insight/34-the-vipassana-jhanas/",
+      "host": "mctb.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Arising and Passing Away",
+      "url": "https://www.integrateddaniel.info/the-arising-and-passing-away",
+      "host": "integrateddaniel.info",
+      "shelf": "hop"
+    },
+    {
+      "title": "Dissolution, Entrance to the Dark Night",
+      "url": "https://www.mctb.org/mctb2/table-of-contents/part-iv-insight/30-the-progress-of-insight/5-dissolution-entrance-to-the-dark-night/",
+      "host": "mctb.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Cessation of Perception and Feeling (Nirodha Samapatti)",
+      "url": "https://www.mctb.org/mctb2/table-of-contents/part-v-awakening/37-models-of-the-stages-of-awakening/the-cessation-of-perception-and-feeling-nirodha-samapatti/",
+      "host": "mctb.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "On Dark Rooms, Jhanas, Ecstasy, and the Symmetry Theory of Valence",
+      "url": "https://qualiacomputing.com/2021/10/31/on-dark-rooms-jhanas-ecstasy-and-the-symmetry-theory-of-valence/",
+      "host": "qualiacomputing.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "On Rhythms of the Brain: Jhanas, Local Field Potentials, and Electromagnetic Theories of Consciousness",
+      "url": "https://qualiacomputing.com/2022/10/27/on-rhythms-of-the-brain-jhanas-local-field-potentials-and-electromagnetic-theories-of-consciousness/",
+      "host": "qualiacomputing.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "High-Valence Meditation",
+      "url": "https://qualiacomputing.com/2021/12/03/high-valence-meditation/",
+      "host": "qualiacomputing.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Supreme State of Unconsciousness: Classical Enlightenment from the Point of View of Valence Structuralism",
+      "url": "https://qualiacomputing.com/2021/11/23/the-supreme-state-unconsciousness-classical-enlightenment-from-the-point-of-view-of-valence-structuralism/",
+      "host": "qualiacomputing.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "A Profoundly Good Time",
+      "url": "https://pointingatthings.substack.com/p/a-profoundly-good-time",
+      "host": "pointingatthings.substack.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Jhanas Are Human, Not Buddhist",
+      "url": "https://stephenzerfas.substack.com/p/jhanas-are-human-not-buddhist",
+      "host": "stephenzerfas.substack.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Does meditation experience improve success with the jhanas?",
+      "url": "https://nadia.xyz/meditation-experience",
+      "host": "nadia.xyz",
+      "shelf": "hop"
+    },
+    {
+      "title": "Jhana Not by the Numbers",
+      "url": "https://www.accesstoinsight.org/lib/authors/thanissaro/jhananumbers.html",
+      "host": "accesstoinsight.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "The Mystery of the Breath Nimitta",
+      "url": "https://urbandharma.org/udharma/nimitta.html",
+      "host": "urbandharma.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "Travelogue to the Four Jhanas",
+      "url": "https://www.dhammatalks.net/Books/Ajahn_Brahm_Travelogue_to_the_Four_Jhanas.htm",
+      "host": "dhammatalks.net",
+      "shelf": "hop"
+    },
+    {
+      "title": "A Brief History of Buddhist Absorption",
+      "url": "https://www.buddhismuskunde.uni-hamburg.de/pdf/5-personen/analayo/briefhistoryjhana.pdf",
+      "host": "buddhismuskunde.uni-hamburg.de",
+      "shelf": "hop"
+    },
+    {
+      "title": "Report from the Fire Kasina Retreat in France, 2018",
+      "url": "http://www.terjesparby.com/thephilosophersstone/2018/05/11/report-fire-kasina-retreat-france-2018/",
+      "host": "terjesparby.com",
+      "shelf": "hop"
+    },
+    {
+      "title": "Diary: Daniel Ingram (Fire Kasina)",
+      "url": "https://firekasina.org/diaries/the-tower-of-halbar-retreat-2015/diary-daniel-ingram/",
+      "host": "firekasina.org",
+      "shelf": "hop"
+    },
+    {
+      "title": "Fire Kasina Hints for Shinzen Meditators",
+      "url": "https://deconstructingyourself.com/fire-kasina-hints.html",
+      "host": "deconstructingyourself.com",
+      "shelf": "hop"
+    }
+  ]
+}
