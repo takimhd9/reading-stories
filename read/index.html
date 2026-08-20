@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Trails</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #11110f;
+      --fg: #f3efe6;
+      --muted: #9a9388;
+      --line: #2a2723;
+      --paper: #181714;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    .app { min-height: 100%; display: flex; flex-direction: column; }
+    .bar {
+      position: sticky; top: 0; z-index: 5;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      padding: calc(10px + env(safe-area-inset-top)) 12px 10px;
+    }
+    .progress { height: 3px; background: var(--line); border-radius: 99px; overflow: hidden; margin-bottom: 10px; }
+    .progress > i { display: block; height: 100%; background: var(--fg); width: 0; }
+    .row { display: flex; align-items: center; gap: 8px; }
+    .who { flex: 1; min-width: 0; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .count { color: var(--muted); font-size: 12px; }
+    button {
+      appearance: none; border: 0; background: #1a1815; color: var(--fg);
+      border-radius: 999px; padding: 8px 12px; font: inherit; font-size: 13px; cursor: pointer;
+    }
+    .paper {
+      flex: 1;
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+      width: 100%;
+    }
+    .paper .host { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .paper h1.t { font-size: 28px; line-height: 1.15; letter-spacing: -0.03em; margin: 0 0 20px; }
+    .md { line-height: 1.55; font-size: 17px; }
+    .md h1, .md h2, .md h3 { line-height: 1.25; letter-spacing: -0.02em; }
+    .md h1 { font-size: 1.5em; }
+    .md h2 { font-size: 1.25em; margin-top: 1.6em; }
+    .md p { margin: 0.8em 0; }
+    .md a { color: #d7c48a; }
+    .md pre, .md code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+    .md pre { overflow: auto; background: var(--paper); padding: 12px; border-radius: 8px; }
+    .md img { max-width: 100%; height: auto; }
+    .wait, .fail { color: var(--muted); padding: 40px 0; }
+    iframe.alt { width: 100%; min-height: 70vh; border: 0; background: #fff; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="bar">
+      <div class="progress"><i id="fill"></i></div>
+      <div class="row">
+        <button type="button" id="prev">Back</button>
+        <button type="button" id="next">Next</button>
+        <button type="button" id="shuffle">Shuffle</button>
+        <div class="who" id="who"></div>
+        <div class="count" id="count"></div>
+      </div>
+    </div>
+    <article class="paper">
+      <div class="host" id="host"></div>
+      <h1 class="t" id="title"></h1>
+      <div id="body" class="md"></div>
+    </article>
+  </div>
+  <script>
+    let items = [], i = 0, tok = 0;
+    const $ = (id) => document.getElementById(id);
+
+    function shuffle(a) {
+      const b = a.slice();
+      for (let n = b.length - 1; n > 0; n--) {
+        const j = Math.floor(Math.random() * (n + 1));
+        [b[n], b[j]] = [b[j], b[n]];
+      }
+      return b;
+    }
+
+    function esc(s) {
+      return s.replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+    }
+
+    function md(src) {
+      let t = src.replace(/\r\n/g, "\n");
+      t = t.replace(/^Title:.*\n/m, "");
+      t = t.replace(/^URL Source:.*\n/m, "");
+      t = t.replace(/^Markdown Content:\s*\n/m, "");
+      t = t.replace(/^Warning:.*\n/gm, "");
+      const parts = t.split(/```/);
+      let html = "";
+      parts.forEach((chunk, n) => {
+        if (n % 2 === 1) {
+          const nl = chunk.indexOf("\n");
+          const code = nl === -1 ? chunk : chunk.slice(nl + 1);
+          html += "<pre><code>" + esc(code) + "</code></pre>";
+          return;
+        }
+        let c = esc(chunk);
+        c = c.replace(/^### (.+)$/gm, "<h3>$1</h3>");
+        c = c.replace(/^## (.+)$/gm, "<h2>$1</h2>");
+        c = c.replace(/^# (.+)$/gm, "<h1>$1</h1>");
+        c = c.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        c = c.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+        c = c.replace(/(^|\n)[\-\*] (.+)/g, "$1<li>$2</li>");
+        c = c.replace(/(<li>.*<\/li>\n?)+/g, (m) => "<ul>" + m + "</ul>");
+        c = c.split(/\n{2,}/).map((p) => {
+          if (/^<(h\d|ul|pre|li)/.test(p.trim())) return p;
+          return "<p>" + p.replace(/\n/g, "<br>") + "</p>";
+        }).join("");
+        html += c;
+      });
+      return html;
+    }
+
+    async function show() {
+      const it = items[i];
+      if (!it) return;
+      const my = ++tok;
+      $("who").textContent = it.title;
+      $("title").textContent = it.title;
+      $("host").textContent = it.host;
+      $("count").textContent = (i + 1) + " / " + items.length;
+      $("fill").style.width = ((i + 1) / items.length * 100) + "%";
+      $("body").innerHTML = "<p class='wait'>Loading the piece…</p>";
+      const reader = "https://r.jina.ai/" + it.url;
+      try {
+        const r = await fetch(reader);
+        if (!r.ok) throw new Error("bad");
+        const text = await r.text();
+        if (my !== tok) return;
+        $("body").innerHTML = md(text);
+        window.scrollTo(0, 0);
+      } catch (e) {
+        if (my !== tok) return;
+        $("body").innerHTML = '<p class="fail">Couldn’t pull this one into the page. Showing the reader instead.</p><iframe class="alt" src="' + reader + '" title="reader"></iframe>';
+      }
+    }
+
+    function go(d) {
+      i = (i + d + items.length) % items.length;
+      show();
+    }
+
+    $("prev").onclick = () => go(-1);
+    $("next").onclick = () => go(1);
+    $("shuffle").onclick = () => { items = shuffle(items); i = 0; show(); };
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") go(1);
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "s") $("shuffle").click();
+    });
+
+    fetch("articles.json?v=3")
+      .then((r) => r.json())
+      .then((data) => { items = shuffle(data); show(); });
+  </script>
+</body>
+</html>
