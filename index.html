@@ -187,7 +187,7 @@
     <div class="stage">
       <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
       <div class="reader" id="reader"><div class="paper"><div class="md" id="rbody"></div></div></div>
-      <div class="empty" id="empty"><div><strong>Nothing saved</strong>Star a piece. It stays on this browser.</div></div>
+      <div class="empty" id="empty"><div><strong>Nothing liked</strong>Star a piece. Likes help us find more like it.</div></div>
       <div class="sheet">
         <a id="open" target="_blank" rel="noopener">Open original <span class="hint">↗</span></a>
         <button type="button" id="shuffle">Shuffle <span class="hint">S</span></button>
@@ -197,7 +197,7 @@
       </div>
       <div class="dock">
         <button type="button" id="prev" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button type="button" class="star" id="star" aria-label="Favorite"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.4 5 5.5.8-4 3.9.9 5.5L12 16.6 7.2 18.8l.9-5.5-4-3.9 5.5-.8z"/></svg></button>
+        <button type="button" class="star" id="star" aria-label="Like"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.4 5 5.5.8-4 3.9.9 5.5L12 16.6 7.2 18.8l.9-5.5-4-3.9 5.5-.8z"/></svg></button>
         <button type="button" class="aa" id="aa" aria-label="Reader mode"><svg viewBox="0 0 24 24"><path d="M4 20l5-16h2l5 16"/><path d="M6.2 14h7.6"/></svg></button>
         <button type="button" id="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
         <button type="button" id="more" aria-label="More"><svg viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01"/></svg></button>
@@ -210,6 +210,9 @@
     const KEY = "trails-favs-v1";
     const MODE = "trails-view";
     const COLKEY = "trails-col-v1";
+    const RID = "trails-reader-v1";
+    const SB = "https://styuttskzaxquzqgswgx.supabase.co";
+    const SBKEY = "sb_publishable_ZbAZMysSVE5SqaEjhX_viA_kKj4be_Y";
     const NO_FRAME = new Set([
       "a16z.com",
       "anthropic.com",
@@ -224,7 +227,9 @@
       "interconnects.ai",
       "johndcook.com",
       "maximum-progress.com",
+      "designobserver.com",
       "medium.com",
+      "newyorker.com",
       "netinterest.co",
       "nytimes.com",
       "owlposting.com",
@@ -235,6 +240,7 @@
       "sites.google.com",
       "statecraft.pub",
       "theintrinsicperspective.com",
+      "theverge.com",
       "thepsmiths.com",
       "usenix.org",
       "venture.angellist.com",
@@ -261,6 +267,47 @@
       readerOn = sessionStorage.getItem(MODE) === "reader";
     }
     function saveFavs() { localStorage.setItem(KEY, JSON.stringify([...favs])); }
+    function readerId() {
+      let id = localStorage.getItem(RID);
+      if (!id || id.length < 8) {
+        id = (crypto.randomUUID && crypto.randomUUID()) || (Date.now() + "-" + Math.random().toString(16).slice(2));
+        localStorage.setItem(RID, id);
+      }
+      return id;
+    }
+    function colId() { return (col && col.id) || "taki"; }
+    function sbHeaders() {
+      return { apikey: SBKEY, Authorization: "Bearer " + SBKEY, "Content-Type": "application/json" };
+    }
+    function pushLike(it, on) {
+      if (!it || !it.url) return;
+      const rid = readerId();
+      const q = "collection=eq." + encodeURIComponent(colId()) +
+        "&reader_id=eq." + encodeURIComponent(rid) +
+        "&url=eq." + encodeURIComponent(it.url);
+      if (on) {
+        fetch(SB + "/rest/v1/likes", {
+          method: "POST",
+          headers: Object.assign({ Prefer: "return=minimal,resolution=merge-duplicates" }, sbHeaders()),
+          body: JSON.stringify({
+            collection: colId(), url: it.url, title: it.title || "", host: it.host || "", reader_id: rid
+          })
+        }).catch(function () {});
+      } else {
+        fetch(SB + "/rest/v1/likes?" + q, { method: "DELETE", headers: sbHeaders() }).catch(function () {});
+      }
+    }
+    function pullLikes() {
+      fetch(SB + "/rest/v1/likes?select=url&reader_id=eq." + encodeURIComponent(readerId()), { headers: sbHeaders() })
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (rows) {
+          (rows || []).forEach(function (row) { if (row.url) favs.add(row.url); });
+          saveFavs();
+          const it = current();
+          if (it) $("star").classList.toggle("on", favs.has(it.url));
+        })
+        .catch(function () {});
+    }
     function shuffle(a) {
       const b = a.slice();
       for (let n = b.length - 1; n > 0; n--) {
@@ -425,6 +472,7 @@
       if (favs.has(it.url)) favs.delete(it.url);
       else favs.add(it.url);
       saveFavs();
+      pushLike(it, favs.has(it.url));
       if (savedOnly) rebuild(it.url);
       else $("star").classList.toggle("on", favs.has(it.url));
     }
@@ -484,6 +532,7 @@
       if (frame.dataset.url) { frame.src = "about:blank"; frame.dataset.url = ""; }
       drawCols();
       show();
+      pullLikes();
     }
     function switchCol(id) {
       const meta = catalogs.find((c) => c.id === id) || catalogs[0];
