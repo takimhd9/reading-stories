@@ -5,5 +5,12 @@
     "blurb": "Sit-with-it longform, grown from Gwern outward.",
     "file": "collections/taki.json",
     "count": 136
+  },
+  {
+    "id": "luna",
+    "name": "Luna",
+    "blurb": "Culture, design, and how we live with machines. Sit-with-it essays only.",
+    "file": "collections/luna.json",
+    "count": 18
   }
 ]
