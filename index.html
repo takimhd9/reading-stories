@@ -7,120 +7,111 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0c0b0a;
-      --fg: #f4efe6;
-      --muted: #9a9388;
-      --line: #2a2723;
+      --bg: #0a0908;
+      --bar: #0a0908ee;
+      --fg: #f6f1e8;
+      --muted: #8f877c;
+      --line: #2c2823;
+      --gold: #e8c36a;
+      --btn: #1c1916;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
     body {
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
       background: var(--bg);
       color: var(--fg);
       overflow: hidden;
     }
-    .app {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
+    .app { height: 100%; display: flex; flex-direction: column; }
     .bar {
       flex: none;
-      padding: 10px 12px calc(10px + env(safe-area-inset-top));
-      padding-top: calc(10px + env(safe-area-inset-top));
-      background: var(--bg);
+      padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+      background: var(--bar);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
     }
-    .progress {
-      height: 3px;
-      background: var(--line);
-      border-radius: 99px;
-      overflow: hidden;
-      margin-bottom: 10px;
+    .ticks {
+      display: flex; gap: 3px; height: 2px; margin-bottom: 10px;
     }
-    .progress > i { display: block; height: 100%; background: var(--fg); width: 0; }
-    .row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .ticks i {
+      flex: 1; background: #2a2622; border-radius: 99px; min-width: 0;
     }
-    .title {
-      flex: 1;
-      min-width: 0;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .ticks i.on { background: var(--fg); }
+    .ticks i.now { background: var(--gold); }
+    .row { display: flex; align-items: center; gap: 8px; }
+    .id {
+      flex: 1; min-width: 0;
     }
-    .count { color: var(--muted); font-size: 12px; flex: none; }
+    .id .t {
+      font-size: 15px; font-weight: 600; letter-spacing: -0.02em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .id .h { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+    .count { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; color: var(--muted); }
     button, a.btn {
-      appearance: none;
-      border: 0;
-      background: #1a1815;
-      color: var(--fg);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font: inherit;
-      font-size: 13px;
-      cursor: pointer;
-      text-decoration: none;
-      flex: none;
+      appearance: none; border: 0; background: var(--btn); color: var(--fg);
+      border-radius: 999px; padding: 8px 12px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12px; letter-spacing: 0.02em; cursor: pointer;
+      text-decoration: none; flex: none;
     }
+    button:hover, a.btn:hover { background: #2a2622; }
+    button.star { font-size: 16px; padding: 6px 10px; color: var(--muted); }
+    button.star.on { color: var(--gold); }
+    button.sel { background: var(--fg); color: var(--bg); }
     a.btn { background: var(--fg); color: var(--bg); font-weight: 600; }
-    .stage {
-      flex: 1;
-      position: relative;
-      min-height: 0;
-      background: #fff;
+    .stage { flex: 1; min-height: 0; background: #fff; position: relative; }
+    iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+    .empty {
+      display: none; position: absolute; inset: 0;
+      background: var(--bg); color: var(--muted);
+      align-items: center; justify-content: center; text-align: center;
+      padding: 40px;
     }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #fff;
-    }
-    .block {
-      display: none;
-      position: absolute;
-      inset: 0;
-      background: var(--bg);
-      color: var(--fg);
-      padding: 48px 24px;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .block.on { display: flex; flex-direction: column; gap: 16px; }
-    .block p { color: var(--muted); margin: 0; max-width: 28em; }
+    .empty.on { display: flex; }
   </style>
 </head>
 <body>
   <div class="app">
     <div class="bar">
-      <div class="progress"><i id="fill"></i></div>
+      <div class="ticks" id="ticks"></div>
       <div class="row">
         <button type="button" id="prev">Back</button>
         <button type="button" id="next">Next</button>
-        <button type="button" id="shuffle">Shuffle</button>
-        <div class="title" id="title"></div>
+        <div class="id">
+          <div class="t" id="title"></div>
+          <div class="h" id="host"></div>
+        </div>
         <div class="count" id="count"></div>
+        <button type="button" class="star" id="star" title="Favorite">★</button>
+        <button type="button" id="mode">Saved</button>
+        <button type="button" id="shuffle">Shuffle</button>
         <a class="btn" id="open" target="_blank" rel="noopener">Open</a>
       </div>
     </div>
     <div class="stage">
       <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="block" id="block">
-        <p id="blockmsg">This site won’t load in the frame.</p>
-        <a class="btn" id="blockopen" target="_blank" rel="noopener">Open it</a>
-      </div>
+      <div class="empty" id="empty">Nothing saved yet. Star a piece you want to keep.</div>
     </div>
   </div>
   <script>
-    let items = [];
+    const KEY = "trails-favs-v1";
+    let all = [];
+    let deck = [];
     let i = 0;
-    let loadTok = 0;
+    let savedOnly = false;
+    let favs = new Set();
+
     const $ = (id) => document.getElementById(id);
+
+    function loadFavs() {
+      try { favs = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); }
+      catch (_) { favs = new Set(); }
+    }
+    function saveFavs() {
+      localStorage.setItem(KEY, JSON.stringify([...favs]));
+    }
 
     function shuffle(a) {
       const b = a.slice();
@@ -131,52 +122,99 @@
       return b;
     }
 
+    function current() { return deck[i]; }
+
+    function ticks() {
+      const el = $("ticks");
+      el.innerHTML = "";
+      const n = Math.min(deck.length, 24);
+      if (!n) return;
+      const start = Math.max(0, Math.min(i - 11, deck.length - n));
+      for (let k = 0; k < n; k++) {
+        const t = document.createElement("i");
+        const idx = start + k;
+        if (idx < i) t.className = "on";
+        if (idx === i) t.className = "now";
+        el.appendChild(t);
+      }
+    }
+
     function show() {
-      const it = items[i];
-      if (!it) return;
+      const it = current();
+      $("empty").classList.toggle("on", !it);
+      if (!it) {
+        $("title").textContent = savedOnly ? "Saved" : "Trails";
+        $("host").textContent = "";
+        $("count").textContent = "0";
+        $("star").classList.remove("on");
+        $("frame").src = "about:blank";
+        ticks();
+        return;
+      }
       $("title").textContent = it.title;
-      $("count").textContent = (i + 1) + " / " + items.length;
-      $("fill").style.width = ((i + 1) / items.length * 100) + "%";
+      $("host").textContent = it.host;
+      $("count").textContent = (i + 1) + " / " + deck.length;
       $("open").href = it.url;
-      $("blockopen").href = it.url;
-      $("block").classList.remove("on");
-      const tok = ++loadTok;
-      const frame = $("frame");
-      frame.src = "about:blank";
-      requestAnimationFrame(() => {
-        if (tok !== loadTok) return;
-        frame.src = it.url;
-      });
-      setTimeout(() => {
-        if (tok !== loadTok) return;
-        try {
-          const href = frame.contentWindow.location.href;
-          if (href === "about:blank") {
-            $("blockmsg").textContent = "This one blocked the embed.";
-            $("block").classList.add("on");
-          }
-        } catch (_) {}
-      }, 2800);
+      $("star").classList.toggle("on", favs.has(it.url));
+      $("frame").src = it.url;
+      ticks();
+    }
+
+    function rebuild(keepUrl) {
+      const src = savedOnly ? all.filter((x) => favs.has(x.url)) : all;
+      const here = keepUrl || (current() && current().url);
+      deck = src.slice();
+      i = Math.max(0, deck.findIndex((x) => x.url === here));
+      if (i < 0) i = 0;
+      show();
     }
 
     function go(d) {
-      i = (i + d + items.length) % items.length;
+      if (!deck.length) return;
+      i = (i + d + deck.length) % deck.length;
       show();
+    }
+
+    function toggleFav() {
+      const it = current();
+      if (!it) return;
+      if (favs.has(it.url)) favs.delete(it.url);
+      else favs.add(it.url);
+      saveFavs();
+      if (savedOnly) rebuild(it.url);
+      else $("star").classList.toggle("on", favs.has(it.url));
     }
 
     $("prev").onclick = () => go(-1);
     $("next").onclick = () => go(1);
-    $("shuffle").onclick = () => { items = shuffle(items); i = 0; show(); };
+    $("star").onclick = toggleFav;
+    $("shuffle").onclick = () => {
+      deck = shuffle(deck);
+      i = 0;
+      show();
+    };
+    $("mode").onclick = () => {
+      savedOnly = !savedOnly;
+      $("mode").classList.toggle("sel", savedOnly);
+      $("mode").textContent = savedOnly ? "All" : "Saved";
+      rebuild();
+    };
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "s") $("shuffle").click();
+      if (e.key === "f") toggleFav();
     });
 
+    loadFavs();
     fetch("articles.json")
       .then((r) => r.json())
-      .then((data) => { items = shuffle(data); show(); });
+      .then((data) => {
+        all = data;
+        deck = shuffle(data);
+        show();
+      });
   </script>
 </body>
 </html>
