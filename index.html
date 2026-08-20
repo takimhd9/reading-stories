@@ -137,9 +137,40 @@
     }
     .dock button:hover { background: rgba(255,255,255,0.08); }
     .dock svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-    .dock .star.on { color: var(--gold); }
+    .dock .star.on { color: #e86b6b; }
     .dock .star.on svg { fill: currentColor; }
     .dock .aa.on { color: var(--gold); }
+    .whysheet {
+      position: absolute;
+      left: 50%;
+      bottom: calc(80px + env(safe-area-inset-bottom));
+      transform: translateX(-50%) translateY(8px);
+      width: min(320px, calc(100vw - 32px));
+      padding: 14px;
+      background: var(--glass);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+      z-index: 6;
+    }
+    .app.why .whysheet { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+    .whyhead { font-size: 14px; font-weight: 520; margin-bottom: 8px; }
+    .whysheet textarea {
+      width: 100%; min-height: 72px; resize: none;
+      border: 1px solid var(--line); border-radius: 10px;
+      background: rgba(0,0,0,0.25); color: var(--ink);
+      font: inherit; font-size: 14px; padding: 10px;
+      outline: none;
+    }
+    .whyrow { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+    .whyrow button {
+      appearance: none; border: 0; background: rgba(255,255,255,0.08);
+      color: var(--ink); font: inherit; font-size: 13px;
+      padding: 8px 12px; border-radius: 999px; cursor: pointer;
+    }
+    .whyrow #whysave { background: #e86b6b; color: #1a0f0f; font-weight: 560; }
     .sheet {
       position: absolute;
       left: 50%;
@@ -187,17 +218,25 @@
     <div class="stage">
       <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
       <div class="reader" id="reader"><div class="paper"><div class="md" id="rbody"></div></div></div>
-      <div class="empty" id="empty"><div><strong>Nothing liked</strong>Star a piece. Likes help us find more like it.</div></div>
+      <div class="empty" id="empty"><div><strong>Nothing liked</strong>Heart a piece. Say why if you want. We use that to find more.</div></div>
       <div class="sheet">
         <a id="open" target="_blank" rel="noopener">Open original <span class="hint">↗</span></a>
         <button type="button" id="shuffle">Shuffle <span class="hint">S</span></button>
-        <button type="button" id="mode">Saved only <span class="hint" id="modehint">Off</span></button>
+        <button type="button" id="mode">Liked only <span class="hint" id="modehint">Off</span></button>
         <div class="sec">Collections</div>
         <div id="cols"></div>
       </div>
+      <div class="whysheet" id="whybox">
+        <div class="whyhead">Liked. Why?</div>
+        <textarea id="why" maxlength="400" placeholder="What landed for you"></textarea>
+        <div class="whyrow">
+          <button type="button" id="whyskip">Skip</button>
+          <button type="button" id="whysave">Save</button>
+        </div>
+      </div>
       <div class="dock">
         <button type="button" id="prev" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button type="button" class="star" id="star" aria-label="Like"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.4 5 5.5.8-4 3.9.9 5.5L12 16.6 7.2 18.8l.9-5.5-4-3.9 5.5-.8z"/></svg></button>
+        <button type="button" class="star" id="star" aria-label="Like"><svg viewBox="0 0 24 24"><path d="M12 20.4s-6.7-4.2-9.4-8.1C.6 9.7 1 5.8 3.9 4.1c2.3-1.4 5.1-.8 8.1 2 3-2.8 5.8-3.4 8.1-2 2.9 1.7 3.3 5.6 1.3 8.2-2.7 3.9-9.4 8.1-9.4 8.1z"/></svg></button>
         <button type="button" class="aa" id="aa" aria-label="Reader mode"><svg viewBox="0 0 24 24"><path d="M4 20l5-16h2l5 16"/><path d="M6.2 14h7.6"/></svg></button>
         <button type="button" id="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
         <button type="button" id="more" aria-label="More"><svg viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01"/></svg></button>
@@ -279,24 +318,43 @@
     function sbHeaders() {
       return { apikey: SBKEY, Authorization: "Bearer " + SBKEY, "Content-Type": "application/json" };
     }
-    function pushLike(it, on) {
-      if (!it || !it.url) return;
-      const rid = readerId();
-      const q = "collection=eq." + encodeURIComponent(colId()) +
-        "&reader_id=eq." + encodeURIComponent(rid) +
+    function likeQuery(it) {
+      return "collection=eq." + encodeURIComponent(colId()) +
+        "&reader_id=eq." + encodeURIComponent(readerId()) +
         "&url=eq." + encodeURIComponent(it.url);
+    }
+    function pushLike(it, on, why) {
+      if (!it || !it.url) return;
+      const q = likeQuery(it);
       if (on) {
+        const body = {
+          collection: colId(), url: it.url, title: it.title || "", host: it.host || "",
+          reader_id: readerId(), why: why || ""
+        };
         fetch(SB + "/rest/v1/likes", {
           method: "POST",
           headers: Object.assign({ Prefer: "return=minimal,resolution=merge-duplicates" }, sbHeaders()),
-          body: JSON.stringify({
-            collection: colId(), url: it.url, title: it.title || "", host: it.host || "", reader_id: rid
-          })
+          body: JSON.stringify(body)
         }).catch(function () {});
       } else {
         fetch(SB + "/rest/v1/likes?" + q, { method: "DELETE", headers: sbHeaders() }).catch(function () {});
       }
     }
+    function saveWhy(it, why) {
+      if (!it || !it.url) return;
+      fetch(SB + "/rest/v1/likes?" + likeQuery(it), {
+        method: "PATCH",
+        headers: Object.assign({ Prefer: "return=minimal" }, sbHeaders()),
+        body: JSON.stringify({ why: (why || "").trim() })
+      }).catch(function () {});
+    }
+    function openWhy() {
+      app.classList.remove("menu");
+      $("why").value = "";
+      app.classList.add("why");
+      setTimeout(function () { $("why").focus(); }, 80);
+    }
+    function closeWhy() { app.classList.remove("why"); }
     function pullLikes() {
       fetch(SB + "/rest/v1/likes?select=url&reader_id=eq." + encodeURIComponent(readerId()), { headers: sbHeaders() })
         .then(function (r) { return r.ok ? r.json() : []; })
@@ -469,10 +527,17 @@
     function toggleFav() {
       const it = current();
       if (!it) return;
-      if (favs.has(it.url)) favs.delete(it.url);
-      else favs.add(it.url);
-      saveFavs();
-      pushLike(it, favs.has(it.url));
+      if (favs.has(it.url)) {
+        favs.delete(it.url);
+        saveFavs();
+        pushLike(it, false);
+        closeWhy();
+      } else {
+        favs.add(it.url);
+        saveFavs();
+        pushLike(it, true);
+        openWhy();
+      }
       if (savedOnly) rebuild(it.url);
       else $("star").classList.toggle("on", favs.has(it.url));
     }
@@ -489,6 +554,16 @@
     $("shuffle").onclick = () => { deck = shuffle(deck); i = 0; app.classList.remove("menu"); show(); };
     $("mode").onclick = () => { savedOnly = !savedOnly; app.classList.remove("menu"); rebuild(); };
     $("open").onclick = () => app.classList.remove("menu");
+    $("whyskip").onclick = () => closeWhy();
+    $("whysave").onclick = () => {
+      const it = current();
+      saveWhy(it, $("why").value);
+      closeWhy();
+    };
+    $("why").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) $("whysave").click();
+      if (e.key === "Escape") closeWhy();
+    });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") go(1);
@@ -496,10 +571,12 @@
       if (e.key === "s") { deck = shuffle(deck); i = 0; show(); }
       if (e.key === "f") toggleFav();
       if (e.key === "r") toggleReader();
-      if (e.key === "Escape") app.classList.remove("menu");
+      if (e.key === "Escape") { app.classList.remove("menu"); closeWhy(); }
     });
     document.addEventListener("pointerdown", (e) => {
-      if (!e.target.closest(".dock") && !e.target.closest(".sheet")) app.classList.remove("menu");
+      if (!e.target.closest(".dock") && !e.target.closest(".sheet") && !e.target.closest(".whysheet")) {
+        app.classList.remove("menu");
+      }
     });
 
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
