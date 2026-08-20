@@ -7,111 +7,177 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0a0908;
-      --bar: #0a0908ee;
-      --fg: #f6f1e8;
-      --muted: #8f877c;
-      --line: #2c2823;
-      --gold: #e8c36a;
-      --btn: #1c1916;
+      --ink: #f4efe6;
+      --dim: #8a8378;
+      --gold: #e4b84d;
+      --glass: rgba(12, 11, 10, 0.72);
+      --line: rgba(255, 255, 255, 0.08);
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
     body {
-      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-      background: var(--bg);
-      color: var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: #0b0a09;
+      color: var(--ink);
       overflow: hidden;
     }
-    .app { height: 100%; display: flex; flex-direction: column; }
-    .bar {
-      flex: none;
-      padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
-      background: var(--bar);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line);
+    .app { height: 100%; position: relative; }
+    iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0; background: #fff;
     }
-    .ticks {
-      display: flex; gap: 3px; height: 2px; margin-bottom: 10px;
+    .rail {
+      position: absolute; left: 0; right: 0; top: 0; height: 2px;
+      background: rgba(255,255,255,0.08); z-index: 4;
     }
-    .ticks i {
-      flex: 1; background: #2a2622; border-radius: 99px; min-width: 0;
+    .rail > i {
+      display: block; height: 100%; width: 0;
+      background: var(--ink);
+      transition: width 240ms ease;
     }
-    .ticks i.on { background: var(--fg); }
-    .ticks i.now { background: var(--gold); }
-    .row { display: flex; align-items: center; gap: 8px; }
-    .id {
-      flex: 1; min-width: 0;
+    .chrome {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 220ms ease;
+      z-index: 3;
     }
-    .id .t {
-      font-size: 15px; font-weight: 600; letter-spacing: -0.02em;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .app.show .chrome, .app.menu .chrome { opacity: 1; }
+    .top {
+      pointer-events: auto;
+      padding: calc(16px + env(safe-area-inset-top)) 22px 20px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.62), rgba(0,0,0,0));
     }
-    .id .h { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
-    .count { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; color: var(--muted); }
-    button, a.btn {
-      appearance: none; border: 0; background: var(--btn); color: var(--fg);
-      border-radius: 999px; padding: 8px 12px;
-      font-family: ui-sans-serif, system-ui, sans-serif;
-      font-size: 12px; letter-spacing: 0.02em; cursor: pointer;
-      text-decoration: none; flex: none;
+    .kicker {
+      display: flex; align-items: baseline; gap: 10px;
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(244,239,230,0.7);
     }
-    button:hover, a.btn:hover { background: #2a2622; }
-    button.star { font-size: 16px; padding: 6px 10px; color: var(--muted); }
-    button.star.on { color: var(--gold); }
-    button.sel { background: var(--fg); color: var(--bg); }
-    a.btn { background: var(--fg); color: var(--bg); font-weight: 600; }
-    .stage { flex: 1; min-height: 0; background: #fff; position: relative; }
-    iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+    .kicker b { font-weight: 500; color: var(--ink); letter-spacing: 0.12em; }
+    h1 {
+      margin: 8px 0 0;
+      font-size: clamp(18px, 2.4vw, 26px);
+      font-weight: 520;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      max-width: 36rem;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.45);
+    }
+    .host { margin-top: 6px; font-size: 13px; color: rgba(244,239,230,0.62); }
+    .dock {
+      pointer-events: auto;
+      position: absolute;
+      left: 50%; bottom: calc(22px + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 2px;
+      padding: 6px;
+      background: var(--glass);
+      backdrop-filter: blur(18px) saturate(1.2);
+      -webkit-backdrop-filter: blur(18px) saturate(1.2);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+    .dock button, .dock a {
+      appearance: none; border: 0; background: transparent;
+      color: var(--ink);
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      display: grid; place-items: center;
+      cursor: pointer; text-decoration: none;
+    }
+    .dock button:hover, .dock a:hover { background: rgba(255,255,255,0.08); }
+    .dock button:active { transform: scale(0.96); }
+    .dock svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .dock .star.on { color: var(--gold); }
+    .dock .star.on svg { fill: currentColor; }
+    .sheet {
+      pointer-events: auto;
+      position: absolute;
+      left: 50%;
+      bottom: calc(84px + env(safe-area-inset-bottom));
+      transform: translateX(-50%) translateY(8px);
+      width: min(280px, calc(100vw - 32px));
+      padding: 8px;
+      background: var(--glass);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+    }
+    .app.menu .sheet {
+      opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+    }
+    .sheet button, .sheet a {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
+      padding: 12px 12px;
+      border: 0; background: transparent;
+      color: var(--ink);
+      font: inherit; font-size: 14px;
+      text-decoration: none; cursor: pointer; border-radius: 10px;
+    }
+    .sheet button:hover, .sheet a:hover { background: rgba(255,255,255,0.07); }
+    .sheet .hint { color: var(--dim); font-size: 12px; }
     .empty {
       display: none; position: absolute; inset: 0;
-      background: var(--bg); color: var(--muted);
-      align-items: center; justify-content: center; text-align: center;
-      padding: 40px;
+      background: #0b0a09; z-index: 2;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 40px; color: var(--dim);
     }
     .empty.on { display: flex; }
+    .empty strong { display: block; color: var(--ink); font-weight: 520; margin-bottom: 8px; }
   </style>
 </head>
 <body>
-  <div class="app">
-    <div class="bar">
-      <div class="ticks" id="ticks"></div>
-      <div class="row">
-        <button type="button" id="prev">Back</button>
-        <button type="button" id="next">Next</button>
-        <div class="id">
-          <div class="t" id="title"></div>
-          <div class="h" id="host"></div>
-        </div>
-        <div class="count" id="count"></div>
-        <button type="button" class="star" id="star" title="Favorite">★</button>
-        <button type="button" id="mode">Saved</button>
-        <button type="button" id="shuffle">Shuffle</button>
-        <a class="btn" id="open" target="_blank" rel="noopener">Open</a>
+  <div class="app show" id="app">
+    <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="rail"><i id="fill"></i></div>
+    <div class="chrome" id="chrome">
+      <div class="top">
+        <div class="kicker"><b id="brand">Trails</b><span id="count"></span></div>
+        <h1 id="title"></h1>
+        <div class="host" id="host"></div>
+      </div>
+      <div class="sheet" id="sheet">
+        <a id="open" target="_blank" rel="noopener">Open original <span class="hint">↗</span></a>
+        <button type="button" id="shuffle">Shuffle <span class="hint">S</span></button>
+        <button type="button" id="mode">Saved only <span class="hint" id="modehint">Off</span></button>
+      </div>
+      <div class="dock">
+        <button type="button" id="prev" aria-label="Back">
+          <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button type="button" class="star" id="star" aria-label="Favorite">
+          <svg viewBox="0 0 24 24"><path d="M12 3.6l2.4 5 5.5.8-4 3.9.9 5.5L12 16.6 7.2 18.8l.9-5.5-4-3.9 5.5-.8z"/></svg>
+        </button>
+        <button type="button" id="next" aria-label="Next">
+          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button type="button" id="more" aria-label="More">
+          <svg viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01" /></svg>
+        </button>
       </div>
     </div>
-    <div class="stage">
-      <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="empty" id="empty">Nothing saved yet. Star a piece you want to keep.</div>
+    <div class="empty" id="empty">
+      <div><strong>Nothing saved</strong>Star a piece. It stays on this browser.</div>
     </div>
   </div>
   <script>
     const KEY = "trails-favs-v1";
-    let all = [];
-    let deck = [];
-    let i = 0;
-    let savedOnly = false;
-    let favs = new Set();
-
+    let all = [], deck = [], i = 0, savedOnly = false, favs = new Set();
+    let hideTimer = null;
     const $ = (id) => document.getElementById(id);
+    const app = $("app");
 
     function loadFavs() {
       try { favs = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); }
       catch (_) { favs = new Set(); }
     }
-    function saveFavs() {
-      localStorage.setItem(KEY, JSON.stringify([...favs]));
-    }
+    function saveFavs() { localStorage.setItem(KEY, JSON.stringify([...favs])); }
 
     function shuffle(a) {
       const b = a.slice();
@@ -121,43 +187,42 @@
       }
       return b;
     }
-
     function current() { return deck[i]; }
 
-    function ticks() {
-      const el = $("ticks");
-      el.innerHTML = "";
-      const n = Math.min(deck.length, 24);
-      if (!n) return;
-      const start = Math.max(0, Math.min(i - 11, deck.length - n));
-      for (let k = 0; k < n; k++) {
-        const t = document.createElement("i");
-        const idx = start + k;
-        if (idx < i) t.className = "on";
-        if (idx === i) t.className = "now";
-        el.appendChild(t);
-      }
+    function showChrome() {
+      app.classList.add("show");
+      clearTimeout(hideTimer);
+      if (app.classList.contains("menu")) return;
+      hideTimer = setTimeout(() => app.classList.remove("show"), 2600);
+    }
+    function hideChrome() {
+      if (app.classList.contains("menu")) return;
+      app.classList.remove("show");
     }
 
     function show() {
       const it = current();
       $("empty").classList.toggle("on", !it);
+      $("modehint").textContent = savedOnly ? "On" : "Off";
+      $("brand").textContent = savedOnly ? "Saved" : "Trails";
       if (!it) {
-        $("title").textContent = savedOnly ? "Saved" : "Trails";
+        $("title").textContent = "Saved";
         $("host").textContent = "";
-        $("count").textContent = "0";
+        $("count").textContent = "";
         $("star").classList.remove("on");
         $("frame").src = "about:blank";
-        ticks();
+        $("fill").style.width = "0";
+        showChrome();
         return;
       }
       $("title").textContent = it.title;
       $("host").textContent = it.host;
-      $("count").textContent = (i + 1) + " / " + deck.length;
+      $("count").textContent = String(i + 1).padStart(3, "0") + "  /  " + String(deck.length).padStart(3, "0");
       $("open").href = it.url;
       $("star").classList.toggle("on", favs.has(it.url));
       $("frame").src = it.url;
-      ticks();
+      $("fill").style.width = ((i + 1) / deck.length * 100) + "%";
+      showChrome();
     }
 
     function rebuild(keepUrl) {
@@ -168,13 +233,11 @@
       if (i < 0) i = 0;
       show();
     }
-
     function go(d) {
       if (!deck.length) return;
       i = (i + d + deck.length) % deck.length;
       show();
     }
-
     function toggleFav() {
       const it = current();
       if (!it) return;
@@ -184,37 +247,37 @@
       if (savedOnly) rebuild(it.url);
       else $("star").classList.toggle("on", favs.has(it.url));
     }
+    function toggleMenu() {
+      app.classList.toggle("menu");
+      if (app.classList.contains("menu")) app.classList.add("show");
+      else showChrome();
+    }
 
     $("prev").onclick = () => go(-1);
     $("next").onclick = () => go(1);
     $("star").onclick = toggleFav;
-    $("shuffle").onclick = () => {
-      deck = shuffle(deck);
-      i = 0;
-      show();
-    };
-    $("mode").onclick = () => {
-      savedOnly = !savedOnly;
-      $("mode").classList.toggle("sel", savedOnly);
-      $("mode").textContent = savedOnly ? "All" : "Saved";
-      rebuild();
-    };
+    $("more").onclick = toggleMenu;
+    $("shuffle").onclick = () => { deck = shuffle(deck); i = 0; app.classList.remove("menu"); show(); };
+    $("mode").onclick = () => { savedOnly = !savedOnly; app.classList.remove("menu"); rebuild(); };
+    $("open").onclick = () => app.classList.remove("menu");
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
-      if (e.key === "s") $("shuffle").click();
+      if (e.key === "s") { deck = shuffle(deck); i = 0; show(); }
       if (e.key === "f") toggleFav();
+      if (e.key === "Escape") { app.classList.remove("menu"); hideChrome(); }
+    });
+    document.addEventListener("mousemove", showChrome);
+    document.addEventListener("pointerdown", (e) => {
+      if (!e.target.closest(".dock") && !e.target.closest(".sheet")) app.classList.remove("menu");
+      showChrome();
     });
 
     loadFavs();
     fetch("articles.json")
       .then((r) => r.json())
-      .then((data) => {
-        all = data;
-        deck = shuffle(data);
-        show();
-      });
+      .then((data) => { all = data; deck = shuffle(data); show(); });
   </script>
 </body>
 </html>
