@@ -208,14 +208,34 @@
     const NO_FRAME = new Set([
       "a16z.com",
       "anthropic.com",
+      "benjaminrosshoffman.com",
       "bloomberg.com",
+      "commoncog.com",
+      "darioamodei.com",
+      "dwarkesh.com",
+      "experimental-history.com",
+      "fantasticanachronism.com",
+      "henrikkarlsson.xyz",
+      "interconnects.ai",
+      "johndcook.com",
+      "maximum-progress.com",
       "medium.com",
+      "netinterest.co",
       "nytimes.com",
+      "owlposting.com",
       "press.stripe.com",
+      "publicdomainreview.org",
+      "qntm.org",
+      "rameznaam.com",
       "sites.google.com",
+      "statecraft.pub",
+      "theintrinsicperspective.com",
+      "thepsmiths.com",
       "usenix.org",
       "venture.angellist.com",
-      "vitalik.eth.limo"
+      "vgel.me",
+      "vitalik.eth.limo",
+      "yegge.ai"
     ]);
     let all = [], deck = [], i = 0, savedOnly = false, favs = new Set();
     let readerOn = false;
@@ -248,7 +268,11 @@
       try { return new URL(it.url).hostname.replace(/^www\./, ""); }
       catch (_) { return String(it.host || "").replace(/^www\./, ""); }
     }
-    function blocksFrame(it) { return !!(it && NO_FRAME.has(hostKey(it))); }
+    function blocksFrame(it) {
+      if (!it) return false;
+      const h = hostKey(it);
+      return NO_FRAME.has(h) || h === "substack.com" || h.endsWith(".substack.com");
+    }
 
     function cleanSource(src) {
       let t = src.replace(/\r\n/g, "\n");
