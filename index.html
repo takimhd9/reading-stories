@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0a09" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Trails</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" />
   <style>
     :root {
       color-scheme: dark;
@@ -12,6 +17,8 @@
       --gold: #e4b84d;
       --glass: rgba(12, 11, 10, 0.72);
       --line: rgba(255, 255, 255, 0.08);
+      --paper: #f4efe4;
+      --text: #1b1713;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -27,25 +34,41 @@
       width: 100%; height: 100%;
       border: 0; background: #fff;
     }
+    .reader {
+      display: none;
+      position: absolute; inset: 0;
+      z-index: 2;
+      overflow: auto;
+      background: var(--paper);
+      color: var(--text);
+      -webkit-overflow-scrolling: touch;
+    }
+    .app.read .reader { display: block; }
+    .paper {
+      max-width: 38rem;
+      margin: 0 auto;
+      padding: calc(88px + env(safe-area-inset-top)) 22px calc(120px + env(safe-area-inset-bottom));
+    }
+    .paper .md { font-size: 18px; line-height: 1.6; }
+    .paper .md h1, .paper .md h2, .paper .md h3 { letter-spacing: -0.02em; line-height: 1.25; }
+    .paper .md p { margin: 0.85em 0; }
+    .paper .md a { color: #6b4e12; }
+    .paper .md pre { overflow: auto; background: #e8e0d2; padding: 12px; border-radius: 8px; }
+    .wait, .fail { color: #6d665c; padding: 24px 0; }
     .rail {
       position: absolute; left: 0; right: 0; top: 0; height: 2px;
       background: rgba(255,255,255,0.08); z-index: 4;
     }
-    .rail > i {
-      display: block; height: 100%; width: 0;
-      background: var(--ink);
-      transition: width 240ms ease;
-    }
-    .chrome {
-      position: absolute; inset: 0;
-      pointer-events: none;
-      z-index: 3;
-    }
+    .rail > i { display: block; height: 100%; width: 0; background: var(--ink); transition: width 240ms ease; }
+    .chrome { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
     .top {
       pointer-events: auto;
       padding: calc(16px + env(safe-area-inset-top)) 22px 20px;
       background: linear-gradient(to bottom, rgba(0,0,0,0.62), rgba(0,0,0,0));
     }
+    .app.read .top { background: linear-gradient(to bottom, rgba(244,239,228,0.96), rgba(244,239,228,0)); }
+    .app.read .kicker, .app.read .host { color: rgba(27,23,19,0.55); }
+    .app.read .kicker b, .app.read h1 { color: var(--text); text-shadow: none; }
     .kicker {
       display: flex; align-items: baseline; gap: 10px;
       font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
@@ -76,19 +99,20 @@
       border-radius: 999px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.35);
     }
-    .dock button, .dock a {
+    .dock button {
       appearance: none; border: 0; background: transparent;
       color: var(--ink);
       width: 44px; height: 44px;
       border-radius: 999px;
       display: grid; place-items: center;
-      cursor: pointer; text-decoration: none;
+      cursor: pointer;
     }
-    .dock button:hover, .dock a:hover { background: rgba(255,255,255,0.08); }
+    .dock button:hover { background: rgba(255,255,255,0.08); }
     .dock button:active { transform: scale(0.96); }
     .dock svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
     .dock .star.on { color: var(--gold); }
     .dock .star.on svg { fill: currentColor; }
+    .dock .aa.on { color: var(--gold); }
     .sheet {
       pointer-events: auto;
       position: absolute;
@@ -101,20 +125,15 @@
       backdrop-filter: blur(22px);
       border: 1px solid var(--line);
       border-radius: 16px;
-      opacity: 0;
-      visibility: hidden;
+      opacity: 0; visibility: hidden;
       transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
     }
-    .app.menu .sheet {
-      opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-    }
+    .app.menu .sheet { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
     .sheet button, .sheet a {
       display: flex; align-items: center; justify-content: space-between;
-      width: 100%;
-      padding: 12px 12px;
+      width: 100%; padding: 12px;
       border: 0; background: transparent;
-      color: var(--ink);
-      font: inherit; font-size: 14px;
+      color: var(--ink); font: inherit; font-size: 14px;
       text-decoration: none; cursor: pointer; border-radius: 10px;
     }
     .sheet button:hover, .sheet a:hover { background: rgba(255,255,255,0.07); }
@@ -132,8 +151,9 @@
 <body>
   <div class="app" id="app">
     <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="reader" id="reader"><div class="paper"><div class="md" id="rbody"></div></div></div>
     <div class="rail"><i id="fill"></i></div>
-    <div class="chrome" id="chrome">
+    <div class="chrome">
       <div class="top">
         <div class="kicker"><b id="brand">Trails</b><span id="count"></span></div>
         <h1 id="title"></h1>
@@ -145,33 +165,29 @@
         <button type="button" id="mode">Saved only <span class="hint" id="modehint">Off</span></button>
       </div>
       <div class="dock">
-        <button type="button" id="prev" aria-label="Back">
-          <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
-        </button>
-        <button type="button" class="star" id="star" aria-label="Favorite">
-          <svg viewBox="0 0 24 24"><path d="M12 3.6l2.4 5 5.5.8-4 3.9.9 5.5L12 16.6 7.2 18.8l.9-5.5-4-3.9 5.5-.8z"/></svg>
-        </button>
-        <button type="button" id="next" aria-label="Next">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </button>
-        <button type="button" id="more" aria-label="More">
-          <svg viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01" /></svg>
-        </button>
+        <button type="button" id="prev" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="star" id="star" aria-label="Favorite"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.4 5 5.5.8-4 3.9.9 5.5L12 16.6 7.2 18.8l.9-5.5-4-3.9 5.5-.8z"/></svg></button>
+        <button type="button" class="aa" id="aa" aria-label="Reader mode"><svg viewBox="0 0 24 24"><path d="M4 20l5-16h2l5 16"/><path d="M6.2 14h7.6"/></svg></button>
+        <button type="button" id="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button type="button" id="more" aria-label="More"><svg viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01"/></svg></button>
       </div>
     </div>
-    <div class="empty" id="empty">
-      <div><strong>Nothing saved</strong>Star a piece. It stays on this browser.</div>
-    </div>
+    <div class="empty" id="empty"><div><strong>Nothing saved</strong>Star a piece. It stays on this browser.</div></div>
   </div>
   <script>
     const KEY = "trails-favs-v1";
+    const MODE = "trails-view";
     let all = [], deck = [], i = 0, savedOnly = false, favs = new Set();
+    let readerOn = false;
+    const cache = new Map();
     const $ = (id) => document.getElementById(id);
     const app = $("app");
+    const frame = $("frame");
 
     function loadFavs() {
       try { favs = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); }
       catch (_) { favs = new Set(); }
+      readerOn = sessionStorage.getItem(MODE) === "reader";
     }
     function saveFavs() { localStorage.setItem(KEY, JSON.stringify([...favs])); }
 
@@ -185,17 +201,98 @@
     }
     function current() { return deck[i]; }
 
+    function esc(s) {
+      return s.replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+    }
+    function md(src) {
+      let t = src.replace(/\r\n/g, "\n");
+      t = t.replace(/^Title:.*\n/m, "");
+      t = t.replace(/^URL Source:.*\n/m, "");
+      t = t.replace(/^Markdown Content:\s*\n/m, "");
+      t = t.replace(/^Warning:.*\n/gm, "");
+      const parts = t.split(/```/);
+      let html = "";
+      parts.forEach((chunk, n) => {
+        if (n % 2 === 1) {
+          const nl = chunk.indexOf("\n");
+          html += "<pre><code>" + esc(nl === -1 ? chunk : chunk.slice(nl + 1)) + "</code></pre>";
+          return;
+        }
+        let c = esc(chunk);
+        c = c.replace(/^### (.+)$/gm, "<h3>$1</h3>");
+        c = c.replace(/^## (.+)$/gm, "<h2>$1</h2>");
+        c = c.replace(/^# (.+)$/gm, "<h1>$1</h1>");
+        c = c.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        c = c.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+        c = c.replace(/(^|\n)[\-\*] (.+)/g, "$1<li>$2</li>");
+        c = c.replace(/(<li>.*<\/li>\n?)+/g, (m) => "<ul>" + m + "</ul>");
+        html += c.split(/\n{2,}/).map((p) => /^<(h\d|ul|pre|li)/.test(p.trim()) ? p : "<p>" + p.replace(/\n/g, "<br>") + "</p>").join("");
+      });
+      return html;
+    }
+
+    async function pull(url) {
+      if (cache.has(url)) return cache.get(url);
+      const job = fetch("https://r.jina.ai/" + url).then((r) => {
+        if (!r.ok) throw new Error("bad");
+        return r.text();
+      }).then((t) => { cache.set(url, t); return t; }).catch((e) => { cache.delete(url); throw e; });
+      cache.set(url, job);
+      return job;
+    }
+
+    function prefetchAround() {
+      [-1, 1, 2].forEach((d) => {
+        const it = deck[i + d] || deck[(i + d + deck.length) % deck.length];
+        if (it) pull(it.url).catch(() => {});
+      });
+    }
+
+    async function fillReader(it) {
+      const box = $("rbody");
+      if (!it) { box.innerHTML = ""; return; }
+      if (cache.has(it.url) && typeof cache.get(it.url) === "string") {
+        box.innerHTML = md(cache.get(it.url));
+        $("reader").scrollTop = 0;
+        return;
+      }
+      box.innerHTML = "<p class='wait'>Pulling a clean copy…</p>";
+      try {
+        const t = await pull(it.url);
+        if (current() && current().url === it.url) {
+          box.innerHTML = md(t);
+          $("reader").scrollTop = 0;
+        }
+      } catch (_) {
+        if (current() && current().url === it.url) {
+          box.innerHTML = "<p class='fail'>Couldn’t pull a reader copy. The live site is still underneath. Tap Aa to go back.</p>";
+        }
+      }
+    }
+
+    function setSite(it) {
+      if (!it) { frame.src = "about:blank"; frame.dataset.url = ""; return; }
+      if (frame.dataset.url !== it.url) {
+        frame.src = it.url;
+        frame.dataset.url = it.url;
+      }
+    }
+
     function show() {
       const it = current();
       $("empty").classList.toggle("on", !it);
       $("modehint").textContent = savedOnly ? "On" : "Off";
       $("brand").textContent = savedOnly ? "Saved" : "Trails";
+      app.classList.toggle("read", readerOn);
+      $("aa").classList.toggle("on", readerOn);
+      sessionStorage.setItem(MODE, readerOn ? "reader" : "site");
       if (!it) {
         $("title").textContent = "Saved";
         $("host").textContent = "";
         $("count").textContent = "";
         $("star").classList.remove("on");
-        $("frame").src = "about:blank";
+        setSite(null);
+        $("rbody").innerHTML = "";
         $("fill").style.width = "0";
         return;
       }
@@ -204,8 +301,10 @@
       $("count").textContent = String(i + 1).padStart(3, "0") + "  /  " + String(deck.length).padStart(3, "0");
       $("open").href = it.url;
       $("star").classList.toggle("on", favs.has(it.url));
-      $("frame").src = it.url;
       $("fill").style.width = ((i + 1) / deck.length * 100) + "%";
+      setSite(it);
+      if (readerOn) fillReader(it);
+      prefetchAround();
     }
 
     function rebuild(keepUrl) {
@@ -230,16 +329,16 @@
       if (savedOnly) rebuild(it.url);
       else $("star").classList.toggle("on", favs.has(it.url));
     }
-    function toggleMenu() {
-      app.classList.toggle("menu");
-      if (app.classList.contains("menu")) app.classList.add("show");
-
+    function toggleReader() {
+      readerOn = !readerOn;
+      show();
     }
 
     $("prev").onclick = () => go(-1);
     $("next").onclick = () => go(1);
     $("star").onclick = toggleFav;
-    $("more").onclick = toggleMenu;
+    $("aa").onclick = toggleReader;
+    $("more").onclick = () => app.classList.toggle("menu");
     $("shuffle").onclick = () => { deck = shuffle(deck); i = 0; app.classList.remove("menu"); show(); };
     $("mode").onclick = () => { savedOnly = !savedOnly; app.classList.remove("menu"); rebuild(); };
     $("open").onclick = () => app.classList.remove("menu");
@@ -249,11 +348,24 @@
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "s") { deck = shuffle(deck); i = 0; show(); }
       if (e.key === "f") toggleFav();
+      if (e.key === "r") toggleReader();
       if (e.key === "Escape") app.classList.remove("menu");
     });
     document.addEventListener("pointerdown", (e) => {
       if (!e.target.closest(".dock") && !e.target.closest(".sheet")) app.classList.remove("menu");
     });
+
+    let x0 = null;
+    $("reader").addEventListener("touchstart", (e) => { x0 = e.changedTouches[0].screenX; }, {passive:true});
+    $("reader").addEventListener("touchend", (e) => {
+      if (x0 == null) return;
+      const dx = e.changedTouches[0].screenX - x0;
+      if (dx < -60) go(1);
+      if (dx > 60) go(-1);
+      x0 = null;
+    }, {passive:true});
+
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 
     loadFavs();
     fetch("articles.json")
