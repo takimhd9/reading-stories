@@ -9,6 +9,9 @@
   <title>Trails</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
   <style>
     :root {
       color-scheme: dark;
@@ -17,8 +20,8 @@
       --gold: #e4b84d;
       --glass: rgba(12, 11, 10, 0.72);
       --line: rgba(255, 255, 255, 0.08);
-      --paper: #f4efe4;
-      --text: #1b1713;
+      --paper: #1c1915;
+      --text: #efe8dc;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -38,23 +41,54 @@
       display: none;
       position: absolute; inset: 0;
       z-index: 2;
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
       background: var(--paper);
       color: var(--text);
-      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: none;
+      touch-action: pan-y;
     }
     .app.read .reader { display: block; }
     .paper {
-      max-width: 38rem;
+      max-width: 34rem;
+      width: 100%;
       margin: 0 auto;
       padding: calc(88px + env(safe-area-inset-top)) 22px calc(120px + env(safe-area-inset-bottom));
+      overflow-x: hidden;
     }
-    .paper .md { font-size: 18px; line-height: 1.6; }
-    .paper .md h1, .paper .md h2, .paper .md h3 { letter-spacing: -0.02em; line-height: 1.25; }
-    .paper .md p { margin: 0.85em 0; }
-    .paper .md a { color: #6b4e12; }
-    .paper .md pre { overflow: auto; background: #e8e0d2; padding: 12px; border-radius: 8px; }
-    .wait, .fail { color: #6d665c; padding: 24px 0; }
+    .paper .md {
+      font-family: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      font-size: 20px;
+      font-optical-sizing: auto;
+      line-height: 1.65;
+      letter-spacing: 0.005em;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .paper .md h1, .paper .md h2, .paper .md h3 {
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      line-height: 1.28;
+    }
+    .paper .md h1 { font-size: 1.55em; margin: 1.2em 0 0.4em; }
+    .paper .md h2 { font-size: 1.25em; margin: 1.4em 0 0.4em; }
+    .paper .md p { margin: 0.9em 0; }
+    .paper .md a { color: #d4b56a; }
+    .paper .md img, .paper .md video, .paper .md iframe, .paper .md table {
+      max-width: 100%; height: auto;
+    }
+    .paper .md pre, .paper .md code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82em;
+    }
+    .paper .md pre {
+      white-space: pre-wrap;
+      overflow-x: hidden;
+      background: #2a2621;
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .wait, .fail { color: #a39888; padding: 24px 0; font-family: "Newsreader", Georgia, serif; }
     .rail {
       position: absolute; left: 0; right: 0; top: 0; height: 2px;
       background: rgba(255,255,255,0.08); z-index: 4;
@@ -66,8 +100,8 @@
       padding: calc(16px + env(safe-area-inset-top)) 22px 20px;
       background: linear-gradient(to bottom, rgba(0,0,0,0.62), rgba(0,0,0,0));
     }
-    .app.read .top { background: linear-gradient(to bottom, rgba(244,239,228,0.96), rgba(244,239,228,0)); }
-    .app.read .kicker, .app.read .host { color: rgba(27,23,19,0.55); }
+    .app.read .top { background: linear-gradient(to bottom, rgba(28,25,21,0.94), rgba(28,25,21,0)); }
+    .app.read .kicker, .app.read .host { color: rgba(239,232,220,0.55); }
     .app.read .kicker b, .app.read h1 { color: var(--text); text-shadow: none; }
     .kicker {
       display: flex; align-items: baseline; gap: 10px;
@@ -355,15 +389,6 @@
       if (!e.target.closest(".dock") && !e.target.closest(".sheet")) app.classList.remove("menu");
     });
 
-    let x0 = null;
-    $("reader").addEventListener("touchstart", (e) => { x0 = e.changedTouches[0].screenX; }, {passive:true});
-    $("reader").addEventListener("touchend", (e) => {
-      if (x0 == null) return;
-      const dx = e.changedTouches[0].screenX - x0;
-      if (dx < -60) go(1);
-      if (dx > 60) go(-1);
-      x0 = null;
-    }, {passive:true});
 
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 
