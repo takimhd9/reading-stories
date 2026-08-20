@@ -118,6 +118,7 @@
     .wait, .fail { color: #a39888; padding: 12px 0; }
     .dock {
       position: absolute;
+      z-index: 8;
       left: 50%; bottom: calc(18px + env(safe-area-inset-bottom));
       transform: translateX(-50%);
       display: flex; align-items: center; gap: 2px;
@@ -128,7 +129,6 @@
       border: 1px solid var(--line);
       border-radius: 999px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-      z-index: 4;
     }
     .dock button {
       appearance: none; border: 0; background: transparent;
@@ -249,7 +249,7 @@
     const KEY = "trails-favs-v1";
     const MODE = "trails-view";
     const COLKEY = "trails-col-v1";
-    const VER = "10";
+    const VER = "11";
     function bust(path) { return path + (path.includes("?") ? "&" : "?") + "v=" + VER; }
     const RID = "trails-reader-v1";
     const SB = "https://styuttskzaxquzqgswgx.supabase.co";
@@ -523,6 +523,7 @@
     }
     function go(d) {
       if (!deck.length) return;
+      closeWhy();
       i = (i + d + deck.length) % deck.length;
       show();
     }
@@ -553,7 +554,7 @@
     $("star").onclick = toggleFav;
     $("aa").onclick = toggleReader;
     $("more").onclick = () => app.classList.toggle("menu");
-    $("shuffle").onclick = () => { deck = shuffle(deck); i = 0; app.classList.remove("menu"); show(); };
+    $("shuffle").onclick = () => { closeWhy(); deck = shuffle(deck); i = 0; app.classList.remove("menu"); show(); };
     $("mode").onclick = () => { savedOnly = !savedOnly; app.classList.remove("menu"); rebuild(); };
     $("open").onclick = () => app.classList.remove("menu");
     $("whyskip").onclick = () => closeWhy();
@@ -563,14 +564,25 @@
       closeWhy();
     };
     $("why").addEventListener("keydown", (e) => {
+      e.stopPropagation();
       if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) $("whysave").click();
       if (e.key === "Escape") closeWhy();
     });
 
+    function isTyping(e) {
+      const el = e.target;
+      if (!el) return false;
+      const tag = (el.tagName || "").toLowerCase();
+      return tag === "textarea" || tag === "input" || el.isContentEditable;
+    }
     document.addEventListener("keydown", (e) => {
+      if (isTyping(e)) {
+        if (e.key === "Escape") { app.classList.remove("menu"); closeWhy(); }
+        return;
+      }
       if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
-      if (e.key === "s") { deck = shuffle(deck); i = 0; show(); }
+      if (e.key === "s") { closeWhy(); deck = shuffle(deck); i = 0; show(); }
       if (e.key === "f") toggleFav();
       if (e.key === "r") toggleReader();
       if (e.key === "Escape") { app.classList.remove("menu"); closeWhy(); }
@@ -601,6 +613,7 @@
       });
     }
     function applyCol(data) {
+      closeWhy();
       col = data;
       all = data.articles || [];
       localStorage.setItem(COLKEY, data.id);
