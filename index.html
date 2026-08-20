@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Trails</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0c0b0a;
+      --fg: #f4efe6;
+      --muted: #9a9388;
+      --line: #2a2723;
+      --accent: #f2c14e;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    .deck {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .bar {
+      height: 3px;
+      background: var(--line);
+      border-radius: 99px;
+      overflow: hidden;
+      flex: none;
+    }
+    .bar > i {
+      display: block;
+      height: 100%;
+      background: var(--fg);
+      width: 0;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+    .card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px 4px 24px;
+      min-height: 0;
+    }
+    .shelf {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: clamp(28px, 7vw, 42px);
+      line-height: 1.1;
+      font-weight: 620;
+      letter-spacing: -0.03em;
+      margin: 0 0 16px;
+    }
+    .host { color: var(--muted); font-size: 15px; word-break: break-all; }
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex: none;
+    }
+    button, a.btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font: inherit;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+    a.btn {
+      background: var(--fg);
+      color: var(--bg);
+      flex: 1;
+      font-weight: 600;
+    }
+    button.ghost {
+      background: #1a1815;
+      color: var(--fg);
+    }
+    .hit {
+      position: fixed;
+      top: 48px;
+      bottom: 90px;
+      width: 28%;
+      z-index: 2;
+    }
+    .hit.left { left: 0; }
+    .hit.right { right: 0; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <div class="bar"><i id="fill"></i></div>
+    <div class="meta">
+      <span id="count"></span>
+      <span id="host"></span>
+    </div>
+    <div class="card">
+      <div class="shelf" id="shelf"></div>
+      <h1 id="title"></h1>
+      <div class="host" id="urlhost"></div>
+    </div>
+    <div class="actions">
+      <button class="ghost" id="shuffle" type="button">Shuffle</button>
+      <a class="btn" id="open" target="_blank" rel="noopener">Open</a>
+    </div>
+  </div>
+  <div class="hit left" id="prev"></div>
+  <div class="hit right" id="next"></div>
+  <script>
+    let items = [];
+    let i = 0;
+
+    const $ = (id) => document.getElementById(id);
+
+    function shuffle(a) {
+      const b = a.slice();
+      for (let n = b.length - 1; n > 0; n--) {
+        const j = Math.floor(Math.random() * (n + 1));
+        [b[n], b[j]] = [b[j], b[n]];
+      }
+      return b;
+    }
+
+    function show() {
+      const it = items[i];
+      if (!it) return;
+      $("title").textContent = it.title;
+      $("shelf").textContent = it.shelf;
+      $("urlhost").textContent = it.host;
+      $("host").textContent = "";
+      $("count").textContent = (i + 1) + " / " + items.length;
+      $("fill").style.width = ((i + 1) / items.length * 100) + "%";
+      $("open").href = it.url;
+    }
+
+    function go(d) {
+      i = (i + d + items.length) % items.length;
+      show();
+    }
+
+    $("prev").onclick = () => go(-1);
+    $("next").onclick = () => go(1);
+    $("shuffle").onclick = () => { items = shuffle(items); i = 0; show(); };
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); go(1); }
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "Enter") $("open").click();
+      if (e.key === "s") $("shuffle").click();
+    });
+
+    let x0 = null;
+    document.addEventListener("touchstart", (e) => { x0 = e.changedTouches[0].screenX; }, {passive:true});
+    document.addEventListener("touchend", (e) => {
+      if (x0 == null) return;
+      const dx = e.changedTouches[0].screenX - x0;
+      if (dx < -40) go(1);
+      if (dx > 40) go(-1);
+      x0 = null;
+    }, {passive:true});
+
+    fetch("articles.json")
+      .then((r) => r.json())
+      .then((data) => { items = shuffle(data); show(); });
+  </script>
+</body>
+</html>
