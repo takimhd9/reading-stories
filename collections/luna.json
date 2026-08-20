@@ -1,0 +1,117 @@
+{
+  "id": "luna",
+  "name": "Luna",
+  "blurb": "Culture, design, and how we live with machines. Sit-with-it essays only.",
+  "seed": "https://www.newyorker.com/culture/the-weekend-essay/our-plastic-surgery-nightmare",
+  "bar": "Blow-her-away magazine and design longform. Voice, thesis, surprise. Not news, not a blogroll, not Taki.",
+  "articles": [
+    {
+      "title": "How the Amish Let Technology In Without Letting It Take Over",
+      "url": "https://thereader.mitpress.mit.edu/how-the-amish-let-technology-in-without-letting-it-take-over/",
+      "shelf": "seed",
+      "host": "thereader.mitpress.mit.edu"
+    },
+    {
+      "title": "Our Plastic-Surgery Nightmare",
+      "url": "https://www.newyorker.com/culture/the-weekend-essay/our-plastic-surgery-nightmare",
+      "shelf": "seed",
+      "host": "newyorker.com"
+    },
+    {
+      "title": "The Branding of New York’s Municipal Grocery",
+      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-zohran-mamdani-new-york-grocery-store-civic-branding-graphic-design-030826",
+      "shelf": "seed",
+      "host": "itsnicethat.com"
+    },
+    {
+      "title": "The Age of Instagram Face",
+      "url": "https://www.newyorker.com/culture/decade-in-review/the-age-of-instagram-face",
+      "shelf": "hop",
+      "host": "newyorker.com"
+    },
+    {
+      "title": "Why A.I. Isn’t Going to Make Art",
+      "url": "https://www.newyorker.com/culture/the-weekend-essay/why-ai-isnt-going-to-make-art",
+      "shelf": "hop",
+      "host": "newyorker.com"
+    },
+    {
+      "title": "A City Is Not a Computer",
+      "url": "https://placesjournal.org/article/a-city-is-not-a-computer/",
+      "shelf": "hop",
+      "host": "placesjournal.org"
+    },
+    {
+      "title": "Why Is Everything So Ugly?",
+      "url": "https://www.nplusonemag.com/issue-44/the-intellectual-situation/why-is-everything-so-ugly/",
+      "shelf": "hop",
+      "host": "nplusonemag.com"
+    },
+    {
+      "title": "Welcome to AirSpace",
+      "url": "https://www.theverge.com/2016/8/3/12325104/airbnb-aesthetic-global-minimalism-startup-gentrification",
+      "shelf": "hop",
+      "host": "theverge.com"
+    },
+    {
+      "title": "Maintenance and Care",
+      "url": "https://placesjournal.org/article/maintenance-care/",
+      "shelf": "hop",
+      "host": "placesjournal.org"
+    },
+    {
+      "title": "Against Branding",
+      "url": "https://designobserver.com/against-branding-part-1-ae-design-and-conflict/",
+      "shelf": "hop",
+      "host": "designobserver.com"
+    },
+    {
+      "title": "Getting Off with the Luddites",
+      "url": "https://www.nplusonemag.com/online-only/online-only/getting-off-with-the-luddites/",
+      "shelf": "hop",
+      "host": "nplusonemag.com"
+    },
+    {
+      "title": "The Fantasy of Opting Out",
+      "url": "https://thereader.mitpress.mit.edu/the-fantasy-of-opting-out/",
+      "shelf": "hop",
+      "host": "thereader.mitpress.mit.edu"
+    },
+    {
+      "title": "Coming of Age at the Dawn of the Social Internet",
+      "url": "https://www.newyorker.com/culture/the-weekend-essay/coming-of-age-at-the-dawn-of-the-social-internet",
+      "shelf": "hop",
+      "host": "newyorker.com"
+    },
+    {
+      "title": "What Happened to Your Face?",
+      "url": "https://www.newyorker.com/magazine/2026/07/06/the-human-face-a-cultural-history-fay-bound-albert-book-review",
+      "shelf": "hop",
+      "host": "newyorker.com"
+    },
+    {
+      "title": "A History of the Data-Tracked User",
+      "url": "https://thereader.mitpress.mit.edu/a-history-of-the-data-tracked-user/",
+      "shelf": "hop",
+      "host": "thereader.mitpress.mit.edu"
+    },
+    {
+      "title": "On the Importance of Taste",
+      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-column-taste-technology-art-280224",
+      "shelf": "hop",
+      "host": "itsnicethat.com"
+    },
+    {
+      "title": "What Aesthetic Is This?",
+      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-whats-in-a-name-categorising-aesthetics-creative-industry-190526",
+      "shelf": "hop",
+      "host": "itsnicethat.com"
+    },
+    {
+      "title": "When We Treat the Past Like a Stock Library",
+      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-good-artists-borrow-big-business-steals-copyright-creative-industry-120225",
+      "shelf": "hop",
+      "host": "itsnicethat.com"
+    }
+  ]
+}
