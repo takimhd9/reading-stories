@@ -39,11 +39,8 @@
     .chrome {
       position: absolute; inset: 0;
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 220ms ease;
       z-index: 3;
     }
-    .app.show .chrome, .app.menu .chrome { opacity: 1; }
     .top {
       pointer-events: auto;
       padding: calc(16px + env(safe-area-inset-top)) 22px 20px;
@@ -133,7 +130,7 @@
   </style>
 </head>
 <body>
-  <div class="app show" id="app">
+  <div class="app" id="app">
     <iframe id="frame" title="article" referrerpolicy="no-referrer-when-downgrade"></iframe>
     <div class="rail"><i id="fill"></i></div>
     <div class="chrome" id="chrome">
@@ -169,7 +166,6 @@
   <script>
     const KEY = "trails-favs-v1";
     let all = [], deck = [], i = 0, savedOnly = false, favs = new Set();
-    let hideTimer = null;
     const $ = (id) => document.getElementById(id);
     const app = $("app");
 
@@ -189,17 +185,6 @@
     }
     function current() { return deck[i]; }
 
-    function showChrome() {
-      app.classList.add("show");
-      clearTimeout(hideTimer);
-      if (app.classList.contains("menu")) return;
-      hideTimer = setTimeout(() => app.classList.remove("show"), 2600);
-    }
-    function hideChrome() {
-      if (app.classList.contains("menu")) return;
-      app.classList.remove("show");
-    }
-
     function show() {
       const it = current();
       $("empty").classList.toggle("on", !it);
@@ -212,7 +197,6 @@
         $("star").classList.remove("on");
         $("frame").src = "about:blank";
         $("fill").style.width = "0";
-        showChrome();
         return;
       }
       $("title").textContent = it.title;
@@ -222,7 +206,6 @@
       $("star").classList.toggle("on", favs.has(it.url));
       $("frame").src = it.url;
       $("fill").style.width = ((i + 1) / deck.length * 100) + "%";
-      showChrome();
     }
 
     function rebuild(keepUrl) {
@@ -250,7 +233,7 @@
     function toggleMenu() {
       app.classList.toggle("menu");
       if (app.classList.contains("menu")) app.classList.add("show");
-      else showChrome();
+
     }
 
     $("prev").onclick = () => go(-1);
@@ -266,12 +249,11 @@
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "s") { deck = shuffle(deck); i = 0; show(); }
       if (e.key === "f") toggleFav();
-      if (e.key === "Escape") { app.classList.remove("menu"); hideChrome(); }
+      if (e.key === "Escape") app.classList.remove("menu");
     });
     document.addEventListener("mousemove", showChrome);
     document.addEventListener("pointerdown", (e) => {
       if (!e.target.closest(".dock") && !e.target.closest(".sheet")) app.classList.remove("menu");
-      showChrome();
     });
 
     loadFavs();
