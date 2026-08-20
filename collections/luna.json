@@ -1,9 +1,9 @@
 {
   "id": "luna",
   "name": "Luna",
-  "blurb": "Culture, design, and how we live with machines. Sit-with-it essays only.",
+  "blurb": "Culture, design, and how we live with machines. Independent writers. Sit-with-it only.",
   "seed": "https://www.newyorker.com/culture/the-weekend-essay/our-plastic-surgery-nightmare",
-  "bar": "Blow-her-away magazine and design longform. Voice, thesis, surprise. Not news, not a blogroll, not Taki.",
+  "bar": "Blow-her-away. Lesser-known cousins of the three seeds. Not a New Yorker stack. Not Taki.",
   "articles": [
     {
       "title": "How the Amish Let Technology In Without Letting It Take Over",
@@ -24,18 +24,6 @@
       "host": "itsnicethat.com"
     },
     {
-      "title": "The Age of Instagram Face",
-      "url": "https://www.newyorker.com/culture/decade-in-review/the-age-of-instagram-face",
-      "shelf": "hop",
-      "host": "newyorker.com"
-    },
-    {
-      "title": "Why A.I. Isn’t Going to Make Art",
-      "url": "https://www.newyorker.com/culture/the-weekend-essay/why-ai-isnt-going-to-make-art",
-      "shelf": "hop",
-      "host": "newyorker.com"
-    },
-    {
       "title": "A City Is Not a Computer",
       "url": "https://placesjournal.org/article/a-city-is-not-a-computer/",
       "shelf": "hop",
@@ -48,70 +36,112 @@
       "host": "nplusonemag.com"
     },
     {
-      "title": "Welcome to AirSpace",
-      "url": "https://www.theverge.com/2016/8/3/12325104/airbnb-aesthetic-global-minimalism-startup-gentrification",
+      "title": "The Questions Concerning Technology",
+      "url": "https://theconvivialsociety.substack.com/p/the-questions-concerning-technology",
       "shelf": "hop",
-      "host": "theverge.com"
+      "host": "theconvivialsociety.substack.com"
     },
     {
-      "title": "Maintenance and Care",
-      "url": "https://placesjournal.org/article/maintenance-care/",
+      "title": "Resistance Is Futile: The Myth of Tech Inevitability",
+      "url": "https://theconvivialsociety.substack.com/p/resistance-is-futile-the-myth-of",
       "shelf": "hop",
-      "host": "placesjournal.org"
+      "host": "theconvivialsociety.substack.com"
     },
     {
-      "title": "Against Branding",
-      "url": "https://designobserver.com/against-branding-part-1-ae-design-and-conflict/",
+      "title": "Unfleshing",
+      "url": "https://reallifemag.com/new-feelings-unfleshing/",
       "shelf": "hop",
-      "host": "designobserver.com"
+      "host": "reallifemag.com"
     },
     {
-      "title": "Getting Off with the Luddites",
-      "url": "https://www.nplusonemag.com/online-only/online-only/getting-off-with-the-luddites/",
+      "title": "TikTok Face",
+      "url": "https://reallifemag.com/tiktok-face/",
       "shelf": "hop",
-      "host": "nplusonemag.com"
+      "host": "reallifemag.com"
     },
     {
-      "title": "The Fantasy of Opting Out",
-      "url": "https://thereader.mitpress.mit.edu/the-fantasy-of-opting-out/",
+      "title": "White Balance",
+      "url": "https://reallifemag.com/white-balance/",
       "shelf": "hop",
-      "host": "thereader.mitpress.mit.edu"
+      "host": "reallifemag.com"
     },
     {
-      "title": "Coming of Age at the Dawn of the Social Internet",
-      "url": "https://www.newyorker.com/culture/the-weekend-essay/coming-of-age-at-the-dawn-of-the-social-internet",
+      "title": "What Screens Want",
+      "url": "https://frankchimero.com/blog/2013/what-screens-want/",
       "shelf": "hop",
-      "host": "newyorker.com"
+      "host": "frankchimero.com"
     },
     {
-      "title": "What Happened to Your Face?",
-      "url": "https://www.newyorker.com/magazine/2026/07/06/the-human-face-a-cultural-history-fay-bound-albert-book-review",
+      "title": "The Web’s Grain",
+      "url": "https://frankchimero.com/blog/2015/the-webs-grain/",
       "shelf": "hop",
-      "host": "newyorker.com"
+      "host": "frankchimero.com"
     },
     {
-      "title": "A History of the Data-Tracked User",
-      "url": "https://thereader.mitpress.mit.edu/a-history-of-the-data-tracked-user/",
+      "title": "How I Got My Attention Back",
+      "url": "https://craigmod.com/essays/how_i_got_my_attention_back/",
       "shelf": "hop",
-      "host": "thereader.mitpress.mit.edu"
+      "host": "craigmod.com"
     },
     {
-      "title": "On the Importance of Taste",
-      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-column-taste-technology-art-280224",
+      "title": "The Logic of the Like",
+      "url": "https://thepointmag.com/examined-life/the-logic-of-the-like/",
       "shelf": "hop",
-      "host": "itsnicethat.com"
+      "host": "thepointmag.com"
     },
     {
-      "title": "What Aesthetic Is This?",
-      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-whats-in-a-name-categorising-aesthetics-creative-industry-190526",
+      "title": "The Google Bus",
+      "url": "https://thepointmag.com/examined-life/the-google-bus/",
       "shelf": "hop",
-      "host": "itsnicethat.com"
+      "host": "thepointmag.com"
     },
     {
-      "title": "When We Treat the Past Like a Stock Library",
-      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-good-artists-borrow-big-business-steals-copyright-creative-industry-120225",
+      "title": "Tending the Digital Commons",
+      "url": "https://hedgehogreview.com/issues/the-human-and-the-digital/articles/tending-the-digital-commons",
       "shelf": "hop",
-      "host": "itsnicethat.com"
+      "host": "hedgehogreview.com"
+    },
+    {
+      "title": "In Defense of the Poor Image",
+      "url": "https://www.e-flux.com/journal/10/61362/in-defense-of-the-poor-image",
+      "shelf": "hop",
+      "host": "e-flux.com"
+    },
+    {
+      "title": "The Mirror-Slave Dialectic",
+      "url": "https://thenewinquiry.com/the-mirror-slave-dialectic/",
+      "shelf": "hop",
+      "host": "thenewinquiry.com"
+    },
+    {
+      "title": "City Skins: Scenes from an Augmented Urban Reality",
+      "url": "https://failedarchitecture.com/city-skins-scenes-from-an-augmented-urban-reality/",
+      "shelf": "hop",
+      "host": "failedarchitecture.com"
+    },
+    {
+      "title": "Unreal City: Google Street View Photography Revisited",
+      "url": "https://averyreview.com/issues/51/unreal-city",
+      "shelf": "hop",
+      "host": "averyreview.com"
+    },
+    {
+      "title": "Clone Stamp: Maintaining Architecture’s Image",
+      "url": "https://www.e-flux.com/architecture/software/337722/clone-stamp-maintaining-architecture-s-image",
+      "shelf": "hop",
+      "host": "e-flux.com"
+    },
+    {
+      "title": "How to Do Nothing",
+      "url": "https://medium.com/@the_jennitaur/how-to-do-nothing-57e100f59bbb",
+      "shelf": "hop",
+      "host": "medium.com"
+    },
+    {
+      "title": "No to NoUI",
+      "url": "https://www.elasticspace.com/2013/03/no-to-no-ui",
+      "shelf": "hop",
+      "host": "elasticspace.com"
     }
   ]
 }
