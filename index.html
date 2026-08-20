@@ -251,7 +251,6 @@
       if (e.key === "f") toggleFav();
       if (e.key === "Escape") app.classList.remove("menu");
     });
-    document.addEventListener("mousemove", showChrome);
     document.addEventListener("pointerdown", (e) => {
       if (!e.target.closest(".dock") && !e.target.closest(".sheet")) app.classList.remove("menu");
     });
