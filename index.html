@@ -249,6 +249,8 @@
     const KEY = "trails-favs-v1";
     const MODE = "trails-view";
     const COLKEY = "trails-col-v1";
+    const VER = "9";
+    function bust(path) { return path + (path.includes("?") ? "&" : "?") + "v=" + VER; }
     const RID = "trails-reader-v1";
     const SB = "https://styuttskzaxquzqgswgx.supabase.co";
     const SBKEY = "sb_publishable_ZbAZMysSVE5SqaEjhX_viA_kKj4be_Y";
@@ -616,16 +618,16 @@
       if (!meta) return;
       app.classList.remove("menu");
       if (col && col.id === meta.id) return;
-      fetch(meta.file).then((r) => r.json()).then(applyCol);
+      fetch(bust(meta.file), { cache: "no-store" }).then((r) => r.json()).then(applyCol);
     }
     loadFavs();
-    fetch("collections.json")
+    fetch(bust("collections.json"), { cache: "no-store" })
       .then((r) => r.json())
       .then((list) => {
         catalogs = list;
         const id = wantedCol();
         const meta = list.find((c) => c.id === id) || list[0];
-        return fetch(meta.file).then((r) => r.json());
+        return fetch(bust(meta.file), { cache: "no-store" }).then((r) => r.json());
       })
       .then(applyCol)
       .catch(() => {
