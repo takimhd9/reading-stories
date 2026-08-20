@@ -1,27 +1,27 @@
 {
   "id": "luna",
   "name": "Luna",
-  "blurb": "Culture, design, and how we live with machines. Independent writers. Sit-with-it only.",
-  "seed": "https://www.newyorker.com/culture/the-weekend-essay/our-plastic-surgery-nightmare",
+  "blurb": "Culture, design, and how we live with machines. All new to her.",
+  "seed": "",
   "bar": "Blow-her-away. Lesser-known cousins of the three seeds. Not a New Yorker stack. Not Taki.",
   "articles": [
     {
-      "title": "How the Amish Let Technology In Without Letting It Take Over",
-      "url": "https://thereader.mitpress.mit.edu/how-the-amish-let-technology-in-without-letting-it-take-over/",
-      "shelf": "seed",
-      "host": "thereader.mitpress.mit.edu"
+      "title": "Maintenance and Care",
+      "url": "https://placesjournal.org/article/maintenance-and-care/",
+      "shelf": "hop",
+      "host": "placesjournal.org"
     },
     {
-      "title": "Our Plastic-Surgery Nightmare",
-      "url": "https://www.newyorker.com/culture/the-weekend-essay/our-plastic-surgery-nightmare",
-      "shelf": "seed",
-      "host": "newyorker.com"
+      "title": "A Cute Idea",
+      "url": "https://thenewinquiry.com/a-cute-idea/",
+      "shelf": "hop",
+      "host": "thenewinquiry.com"
     },
     {
-      "title": "The Branding of New York’s Municipal Grocery",
-      "url": "https://www.itsnicethat.com/articles/elizabeth-goodspeed-zohran-mamdani-new-york-grocery-store-civic-branding-graphic-design-030826",
-      "shelf": "seed",
-      "host": "itsnicethat.com"
+      "title": "Antipublic Urbanism",
+      "url": "https://averyreview.com/issues/3/antipublic-urbanism",
+      "shelf": "hop",
+      "host": "averyreview.com"
     },
     {
       "title": "A City Is Not a Computer",
